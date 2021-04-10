@@ -172,17 +172,17 @@ class SignUpPage(TitlePage):
 
     def get_user_id_by_username(self, username):
         username = username.replace('\'', '\'\'')
-        query = "SELECT user_id from accounts where username='{}'".format(username)
+        query = "SELECT user_id from pbd_accounts where username='{}'".format(username)
         return [item for t in self.controller.run_query(query) for item in t]
 
     def get_user_id_by_email(self, email):
         email = email.replace('\'', '\'\'')
-        query = "SELECT u.user_id from app_users u where email='{}'".format(email)
+        query = "SELECT u.user_id from pbd_app_users u where email='{}'".format(email)
         return [item for t in self.controller.run_query(query) for item in t]
 
     def get_user_id_by_phone(self, phone):
         phone = phone.replace('\'', '\'\'')
-        query = "SELECT u.user_id from app_users u where phone='{}'".format(phone)
+        query = "SELECT u.user_id from pbd_app_users u where phone='{}'".format(phone)
         return [item for t in self.controller.run_query(query) for item in t]
 
     def on_sign_up(self):
@@ -256,7 +256,7 @@ class SignUpPage(TitlePage):
         #password = password.replace('\'', '\'\'')
         user_level = user_level.replace('\'', '\'\'')
 
-        query = "INSERT INTO app_users (first_name, last_name, location_id, email, phone) VALUES ('{}', '{}', {}, '{}', '{}')".format(first_name, last_name, location_id, email, phone)
+        query = "INSERT INTO pbd_app_users (first_name, last_name, location_id, email, phone) VALUES ('{}', '{}', {}, '{}', '{}')".format(first_name, last_name, location_id, email, phone)
         self.controller.run_query(query)
         user_id = self.get_user_id_by_email(self.email_entry.get().strip())
         log.info("User Id Created : {}".format(user_id))
@@ -272,7 +272,7 @@ class SignUpPage(TitlePage):
         password = get_hash(password)
         log.info("Password Hash: {}".format(password))
 
-        query = "INSERT INTO accounts (user_id, username, password, account_type) VALUES ({}, '{}', '{}', '{}')".format(user_id[0], username, password, user_level)
+        query = "INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ({}, '{}', '{}', '{}')".format(user_id[0], username, password, user_level)
         self.controller.run_query(query)
         from tkinter import messagebox
         messagebox.showinfo("Sign Up", "Account Created Succesfully")

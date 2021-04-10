@@ -88,7 +88,7 @@ class LoginPage(TitlePage):
         password = get_hash(password)
         log.info("Password Hash: {}".format(password))
 
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.account_type from app_users u, accounts a where u.user_id = a.user_id and a.username='{}' and a.password='{}'".format(username, password)
+        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.account_type from pbd_app_users u, pbd_accounts a where u.user_id = a.user_id and a.username='{}' and a.password='{}'".format(username, password)
         user_info = [item for t in self.controller.run_query(query) for item in t]
         if user_info:
             self.controller.user_info['user_id'] = user_info[0]

@@ -38,7 +38,7 @@ class TitlePage(tk.Frame):
         return False
 
     def is_user_in_db(self, user_id):
-        query = "SELECT user_id from app_users where user_id={}".format(user_id)
+        query = "SELECT user_id from pbd_app_users where user_id={}".format(user_id)
         return bool(self.controller.run_query(query))
 
     def session_is_allright(self):
@@ -72,18 +72,18 @@ class TitlePage(tk.Frame):
             return False
 
     def get_countries(self):
-        query = "SELECT unique(country) from locations"
+        query = "SELECT unique(country) from pbd_locations"
         return [item for t in self.controller.run_query(query) for item in t]
 
     def get_cities(self, country):
         country = country.replace('\'', '\'\'')
-        query = "SELECT unique(city) from locations where country='{}'".format(country)
+        query = "SELECT unique(city) from pbd_locations where country='{}'".format(country)
         return [item for t in self.controller.run_query(query) for item in t]
 
     def get_streets(self, city, country):
         city = city.replace('\'', '\'\'')
         country = country.replace('\'', '\'\'')
-        query = "SELECT unique(street_address) from locations where city='{}' and country='{}'".format(city, country)
+        query = "SELECT unique(street_address) from pbd_locations where city='{}' and country='{}'".format(city, country)
         return [item for t in self.controller.run_query(query) for item in t]
 
     @staticmethod
@@ -95,14 +95,14 @@ class TitlePage(tk.Frame):
         street = street.replace('\'', '\'\'')
         city = city.replace('\'', '\'\'')
         country = country.replace('\'', '\'\'')
-        location_id_query = "SELECT location_id from locations where lower(street_address)='{}' and lower(city)='{}' and lower(country)='{}'".format(
+        location_id_query = "SELECT location_id from pbd_locations where lower(street_address)='{}' and lower(city)='{}' and lower(country)='{}'".format(
             street.lower(), city.lower(), country.lower())
         query_select = self.controller.run_query(location_id_query)
         if not query_select:
-            location_id_query = "INSERT INTO locations (street_address, city, country) VALUES ('{}', '{}', '{}')".format(
+            location_id_query = "INSERT INTO pbd_locations (street_address, city, country) VALUES ('{}', '{}', '{}')".format(
                 street, city, country)
             self.controller.run_query(location_id_query)
-            location_id_query = "SELECT location_id from locations where street_address='{}' and city='{}' and country='{}'".format(
+            location_id_query = "SELECT location_id from pbd_locations where street_address='{}' and city='{}' and country='{}'".format(
                 street, city, country)
             query_select = self.controller.run_query(location_id_query)
         return query_select[0][0]

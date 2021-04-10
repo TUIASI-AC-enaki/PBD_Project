@@ -105,17 +105,17 @@ class ProductPage(BasicPage):
         product = product.replace('\'', '\'\'')
         description = description.replace('\'', '\'\'')
         if description != 'None' and description != '':
-            query = "SELECT product_id, product_name, price, shop_id, description from products where lower(product_name)='{}' and price={} and shop_id={} and lower(description)='{}'".format(
+            query = "SELECT product_id, product_name, price, shop_id, description from pbd_products where lower(product_name)='{}' and price={} and shop_id={} and lower(description)='{}'".format(
                 product.lower(), price, shop_id, description.lower())
         else:
-            query = "SELECT product_id, product_name, price, shop_id, description from products where lower(product_name)='{}' and price={} and shop_id={} and description is NULL".format(
+            query = "SELECT product_id, product_name, price, shop_id, description from pbd_products where lower(product_name)='{}' and price={} and shop_id={} and description is NULL".format(
                 product.lower(), price, shop_id)
         query_select = self.controller.run_query(query)
         return query_select
 
     def search_for_product_like(self, product):
         product = self.controller.add_escape_characters(product)
-        query = "SELECT product_id, product_name, price, shop_id, description from products where lower(product_name) like '%{}%'".format(
+        query = "SELECT product_id, product_name, price, shop_id, description from pbd_products where lower(product_name) like '%{}%'".format(
             product.lower())
         query_select = self.controller.run_query(query)
         return query_select
@@ -129,7 +129,7 @@ class ProductPage(BasicPage):
                 messagebox.showinfo("Search Error", "Product Id invalid")
                 return
             else:
-                query = "SELECT product_id, product_name, price, shop_id, description from products where product_id={}".format(name)
+                query = "SELECT product_id, product_name, price, shop_id, description from pbd_products where product_id={}".format(name)
                 query_select = self.controller.run_query(query)
                 self.table.clear_table()
                 for row in query_select:
@@ -144,7 +144,7 @@ class ProductPage(BasicPage):
                     self.table.insert('', 'end', values=row)
 
     def exist_shop_id(self, shop_id):
-        query = "SELECT shop_id from shops where shop_id={}".format(shop_id)
+        query = "SELECT shop_id from pbd_shops where shop_id={}".format(shop_id)
         query_select = self.controller.run_query(query)
         if query_select:
             return True
@@ -163,7 +163,7 @@ class ProductPage(BasicPage):
                 from tkinter import messagebox
                 messagebox.showinfo("Insert Error", "Price is not number")
                 return
-            query = "SELECT product_id, product_name, price, shop_id, description from products where price={}".format(price)
+            query = "SELECT product_id, product_name, price, shop_id, description from pbd_products where price={}".format(price)
             query_select = self.controller.run_query(query)
             for row in query_select:
                 self.table.insert('', 'end', values=row)
@@ -189,7 +189,7 @@ class ProductPage(BasicPage):
                 price_min = '0'
             if price_max == '':
                 price_max = '999999'
-            query = "SELECT product_id, product_name, price, shop_id, description from products where price between {} and {}".format(
+            query = "SELECT product_id, product_name, price, shop_id, description from pbd_products where price between {} and {}".format(
                 price_min, price_max)
             query_select = self.controller.run_query(query)
             for row in query_select:
@@ -319,9 +319,9 @@ class ProductPage(BasicPage):
         shop_id = self.shop_id_delete_var.get()
 
         if description!= 'None':
-            delete_query = "DELETE FROM products where product_name='{}' and price={} and shop_id={} and description='{}'".format(name, price, shop_id, description)
+            delete_query = "DELETE FROM pbd_products where product_name='{}' and price={} and shop_id={} and description='{}'".format(name, price, shop_id, description)
         else:
-            delete_query = "DELETE FROM products where product_name='{}' and price={} and shop_id={} and description is NULL".format(name, price, shop_id)
+            delete_query = "DELETE FROM pbd_products where product_name='{}' and price={} and shop_id={} and description is NULL".format(name, price, shop_id)
 
         import cx_Oracle
         try:
@@ -386,7 +386,7 @@ class ProductPage(BasicPage):
         name = name.replace('\'', '\'\'')
         description = description.replace('\'', '\'\'')
 
-        insert_query = "INSERT INTO products (product_name, price, shop_id, description) VALUES ('{}', {}, {}, '{}')".format(name, price, shop_id, description)
+        insert_query = "INSERT INTO pbd_products (product_name, price, shop_id, description) VALUES ('{}', {}, {}, '{}')".format(name, price, shop_id, description)
         self.controller.run_query(insert_query)
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
@@ -438,10 +438,10 @@ class ProductPage(BasicPage):
         if description == 'None':
             description = ''
         if old_description != 'None':
-            update_query = "UPDATE products set product_name = '{}', price = {}, shop_id={}, description='{}' where product_name='{}' and price = {} and shop_id={} and description='{}'".format(
+            update_query = "UPDATE pbd_products set product_name = '{}', price = {}, shop_id={}, description='{}' where product_name='{}' and price = {} and shop_id={} and description='{}'".format(
                 name, price, shop_id, description, old_name, old_price, old_shop_id, old_description)
         else:
-            update_query = "UPDATE products set product_name = '{}', price = {}, shop_id={}, description='{}' where product_name='{}' and price = {} and shop_id={} and description is NULL".format(
+            update_query = "UPDATE pbd_products set product_name = '{}', price = {}, shop_id={}, description='{}' where product_name='{}' and price = {} and shop_id={} and description is NULL".format(
                 name, price, shop_id, description, old_name, old_price, old_shop_id)
         self.controller.run_query(update_query)
         self.populate_the_table_with_all_values()
@@ -449,7 +449,7 @@ class ProductPage(BasicPage):
 
     def populate_the_table_with_all_values(self):
         self.table.clear_table()
-        query_select = self.controller.run_query("SELECT product_id, product_name, price, shop_id, description from products")
+        query_select = self.controller.run_query("SELECT product_id, product_name, price, shop_id, description from pbd_products")
         for row in query_select:
             self.table.insert('', 'end', values=row)
 

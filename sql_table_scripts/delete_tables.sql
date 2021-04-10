@@ -1,15 +1,15 @@
-DROP SEQUENCE location_sequence_incrementer;   
-DROP SEQUENCE shop_sequence_incrementer;
-DROP SEQUENCE product_sequence_incrementer;
-DROP SEQUENCE shipping_method_sequence_incrementer;
-DROP SEQUENCE user_sequence_incrementer;
-DROP SEQUENCE order_sequence_incrementer;
+DROP SEQUENCE pbd_location_sequence_incrementer;   
+DROP SEQUENCE pbd_shop_sequence_incrementer;
+DROP SEQUENCE pbd_product_sequence_incrementer;
+DROP SEQUENCE pbd_shipping_method_sequence_incrementer;
+DROP SEQUENCE pbd_user_sequence_incrementer;
+DROP SEQUENCE pbd_order_sequence_incrementer;
 
-drop table orders;
-drop table accounts;
-drop table app_users;
-drop table shipping_methods;
-drop table products;
-drop table shops;
-drop table locations;
+drop table pbd_orders;
+drop table pbd_accounts;
+drop table pbd_app_users;
+drop table pbd_shipping_methods;
+drop table pbd_products;
+drop table pbd_shops;
+drop table pbd_locations;
 

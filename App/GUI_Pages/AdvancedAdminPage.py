@@ -130,7 +130,7 @@ class AdvancedAdminPage(TitlePage):
 
     def populate_the_table_with_all_values(self):
         self.table.clear_table()
-        query_select = self.controller.run_query("SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a where "
+        query_select = self.controller.run_query("SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a where "
                                                  "a.user_id=u.user_id")
         for row in query_select:
             self.table.insert('', 'end', values=row)
@@ -142,7 +142,7 @@ class AdvancedAdminPage(TitlePage):
             messagebox.showinfo("Error Search", "User Id is not number")
             return
         name = self.controller.add_escape_characters(name)
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                 "where a.user_id=u.user_id and u.user_id={}".format(name)
         self.search(name, query)
 
@@ -160,7 +160,7 @@ class AdvancedAdminPage(TitlePage):
         name = self.first_name_entry.get()
 
         name = self.controller.add_escape_characters(name)
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                 "where a.user_id=u.user_id and lower(u.first_name) like '%{}%' escape '#'".format(name.lower())
         self.search(name, query)
 
@@ -169,7 +169,7 @@ class AdvancedAdminPage(TitlePage):
         name = self.last_name_entry.get()
 
         name = self.controller.add_escape_characters(name)
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                 "where a.user_id=u.user_id and lower(u.last_name) like '%{}%' escape '#'".format(name.lower())
         self.search(name, query)
 
@@ -180,7 +180,7 @@ class AdvancedAdminPage(TitlePage):
             messagebox.showinfo("Error Search", "Location Id is not number")
             return
         name = self.controller.add_escape_characters(name)
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                 "where a.user_id=u.user_id and u.location_id={}".format(name)
         self.search(name, query)
 
@@ -189,7 +189,7 @@ class AdvancedAdminPage(TitlePage):
         name = self.email_entry.get()
 
         name = self.controller.add_escape_characters(name)
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                 "where a.user_id=u.user_id and lower(u.email) like '%{}%' escape '#'".format(name.lower())
         self.search(name, query)
 
@@ -200,7 +200,7 @@ class AdvancedAdminPage(TitlePage):
             messagebox.showinfo("Error Search", "Phone Number is not number")
             return
         name = self.controller.add_escape_characters(name)
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                 "where a.user_id=u.user_id and lower(u.phone) like '%{}%' escape '#'".format(name.lower())
         self.search(name, query)
 
@@ -209,7 +209,7 @@ class AdvancedAdminPage(TitlePage):
         name = self.username_entry.get()
 
         name = self.controller.add_escape_characters(name)
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                 "where a.user_id=u.user_id and lower(a.username) like '%{}%' escape '#'".format(name.lower())
         self.search(name, query)
 
@@ -218,7 +218,7 @@ class AdvancedAdminPage(TitlePage):
         name = self.account_entry.get()
 
         name = self.controller.add_escape_characters(name)
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                 "where a.user_id=u.user_id and lower(a.account_type) like '%{}%' escape '#'".format(name.lower())
         self.search(name, query)
 
@@ -252,7 +252,7 @@ class AdvancedAdminPage(TitlePage):
         account = self.account_entry.get()
         account = self.controller.add_escape_characters(account)
         if location_id != '':
-            query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+            query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                     "where a.user_id=u.user_id and lower(u.first_name) like '%{}%' escape '#'" \
                     "and lower(u.last_name) like '%{}%' escape '#'" \
                     "and u.location_id={}" \
@@ -262,7 +262,7 @@ class AdvancedAdminPage(TitlePage):
                     "and lower(a.account_type) like '%{}%' escape '#'".format(first_name.lower(), last_name.lower(), location_id, email.lower(), phone, username.lower(),
                                                                               account.lower())
         else:
-            query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from app_users u, accounts a " \
+            query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.username, decode(a.account_type, 'admin', lpad('*', length(a.password), '*'), a.password), a.account_type from pbd_app_users u, pbd_accounts a " \
                     "where a.user_id=u.user_id and lower(u.first_name) like '%{}%' escape '#'" \
                     "and lower(u.last_name) like '%{}%' escape '#'" \
                     "and lower(u.email) like '%{}%' escape '#'" \

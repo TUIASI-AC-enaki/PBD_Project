@@ -13,16 +13,16 @@ class HomePage(BasicPage):
         self.init()
 
     def get_product_tuples(self):
-        query_select = self.controller.run_query("SELECT p.product_id, p.product_name, p.price from products p order by p.product_name")
+        query_select = self.controller.run_query("SELECT p.product_id, p.product_name, p.price from pbd_products p order by p.product_name")
         return query_select
 
     def get_product_price(self, product_id):
-        query_select = self.controller.run_query("SELECT price from products where product_id={}".format(product_id))
+        query_select = self.controller.run_query("SELECT price from pbd_products where product_id={}".format(product_id))
         return query_select
 
     def get_shipping_tuples(self):
         query_select = self.controller.run_query(
-            "SELECT shipping_id, provider, delivering_price from shipping_methods order by provider")
+            "SELECT shipping_id, provider, delivering_price from pbd_shipping_methods order by provider")
         return query_select
 
     def init(self):
@@ -121,7 +121,7 @@ class HomePage(BasicPage):
             return
 
         try:
-            query = "INSERT INTO orders (user_id, shipping_id, product_id, quantity, total_amount) VALUES ({}, {}, {}, {}, {})"\
+            query = "INSERT INTO pbd_orders (user_id, shipping_id, product_id, quantity, total_amount) VALUES ({}, {}, {}, {}, {})"\
                 .format(self.controller.user_info['user_id'], shipping_id, product_id, amount, str(int(self.get_shipping_price(shipping_id)) + int(amount)*int(self.get_product_price(product_id)[0][0])))
             self.controller.run_query(query)
         except KeyError:
@@ -130,7 +130,7 @@ class HomePage(BasicPage):
         self.populate_the_table_with_all_values()
 
     def get_shipping_price(self, shipping_id):
-        query = "SELECT delivering_price from shipping_methods where shipping_id={}".format(shipping_id)
+        query = "SELECT delivering_price from pbd_shipping_methods where shipping_id={}".format(shipping_id)
         return self.controller.run_query(query)[0][0]
 
     def on_select(self, event):
@@ -149,7 +149,7 @@ class HomePage(BasicPage):
         self.table.clear_table()
         if self.controller.user_info:
             query_select = self.controller.run_query(
-                "SELECT o.order_id, p.product_name, p.price, o.quantity, ship.provider, ship.delivering_price, o.total_amount, o.date_ordered from orders o, products p, shipping_methods ship "
+                "SELECT o.order_id, p.product_name, p.price, o.quantity, ship.provider, ship.delivering_price, o.total_amount, o.date_ordered from pbd_orders o, pbd_products p, pbd_shipping_methods ship "
                 "where o.product_id = p.product_id and o.shipping_id=ship.shipping_id and o.user_id={} order by p.product_name".format(self.controller.user_info['user_id']))
             for row in query_select:
                 self.table.insert('', 'end', values=row)

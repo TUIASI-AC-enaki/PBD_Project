@@ -99,14 +99,14 @@ class ShippingPage(BasicPage):
 
     def search_for_provider_equal(self, provider):
         provider = provider.replace('\'', '\'\'')
-        query = "SELECT shipping_id, provider, delivering_price from shipping_methods where lower(provider)='{}'".format(
+        query = "SELECT shipping_id, provider, delivering_price from pbd_shipping_methods where lower(provider)='{}'".format(
             provider.lower())
         query_select = self.controller.run_query(query)
         return query_select
 
     def search_for_provider_like(self, provider):
         provider = self.controller.add_escape_characters(provider)
-        query = "SELECT shipping_id, provider, delivering_price from shipping_methods where lower(provider) like '%{}%'".format(provider.lower())
+        query = "SELECT shipping_id, provider, delivering_price from pbd_shipping_methods where lower(provider) like '%{}%'".format(provider.lower())
         query_select = self.controller.run_query(query)
         return query_select
 
@@ -119,7 +119,7 @@ class ShippingPage(BasicPage):
                 messagebox.showinfo("Search Error", "Shipping Id invalid")
                 return
             else:
-                query = "SELECT shipping_id, provider, delivering_price from shipping_methods where shipping_id={}".format(name)
+                query = "SELECT shipping_id, provider, delivering_price from pbd_shipping_methods where shipping_id={}".format(name)
                 query_select = self.controller.run_query(query)
                 self.table.clear_table()
                 for row in query_select:
@@ -145,7 +145,7 @@ class ShippingPage(BasicPage):
                 from tkinter import messagebox
                 messagebox.showinfo("Insert Error", "Price is not number")
                 return
-            query = "SELECT shipping_id, provider, delivering_price from shipping_methods where delivering_price={}".format(price)
+            query = "SELECT shipping_id, provider, delivering_price from pbd_shipping_methods where delivering_price={}".format(price)
             query_select = self.controller.run_query(query)
             for row in query_select:
                 self.table.insert('', 'end', values=row)
@@ -171,7 +171,7 @@ class ShippingPage(BasicPage):
                 price_min = '0'
             if price_max == '':
                 price_max = '999999'
-            query = "SELECT shipping_id, provider, delivering_price from shipping_methods where delivering_price between {} and {}".format(
+            query = "SELECT shipping_id, provider, delivering_price from pbd_shipping_methods where delivering_price between {} and {}".format(
                 price_min, price_max)
             query_select = self.controller.run_query(query)
             for row in query_select:
@@ -253,7 +253,7 @@ class ShippingPage(BasicPage):
         name = self.shipping_name_delete_var.get()
 
         name = name.replace('\'', '\'\'')
-        delete_query = "DELETE FROM shipping_methods WHERE provider='{}'".format(name)
+        delete_query = "DELETE FROM pbd_shipping_methods WHERE provider='{}'".format(name)
         import cx_Oracle
         try:
             self.controller.run_query(delete_query)
@@ -298,7 +298,7 @@ class ShippingPage(BasicPage):
             return
 
         name = name.replace('\'', '\'\'')
-        insert_query = "INSERT INTO shipping_methods (provider, delivering_price) VALUES ('{}', {})".format(name, price)
+        insert_query = "INSERT INTO pbd_shipping_methods (provider, delivering_price) VALUES ('{}', {})".format(name, price)
         self.controller.run_query(insert_query)
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
@@ -327,13 +327,13 @@ class ShippingPage(BasicPage):
         old_name = self.shipping_name_delete_var.get().replace('\'', '\'\'')
 
         name = name.replace('\'', '\'\'')
-        insert_query = "UPDATE shipping_methods set provider = '{}', delivering_price = {} where provider='{}'".format(name, price, old_name)
+        insert_query = "UPDATE pbd_shipping_methods set provider = '{}', delivering_price = {} where provider='{}'".format(name, price, old_name)
         self.controller.run_query(insert_query)
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
 
     def populate_the_table_with_all_values(self):
         self.table.clear_table()
-        query_select = self.controller.run_query("SELECT shipping_id, provider, delivering_price from shipping_methods")
+        query_select = self.controller.run_query("SELECT shipping_id, provider, delivering_price from pbd_shipping_methods")
         for row in query_select:
             self.table.insert('', 'end', values=row)

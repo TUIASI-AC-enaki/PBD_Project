@@ -230,7 +230,7 @@ class ShopPage(BasicPage):
         city = self.city_name_var.get().replace('\'', '\'\'')
         country = self.country_name_var.get().replace('\'', '\'\'')
 
-        shop_id_query = "SELECT shop_id from shops s, locations l where s.location_id = l.location_id and s.shop_name = '{}' and l.street_address='{}' and l.city='{}' and l.country='{}'".format(shop_name, street, city, country)
+        shop_id_query = "SELECT shop_id from pbd_shops s, pbd_locations l where s.location_id = l.location_id and s.shop_name = '{}' and l.street_address='{}' and l.city='{}' and l.country='{}'".format(shop_name, street, city, country)
         try:
             shop_id = self.controller.run_query(shop_id_query)[0][0]
         except IndexError:
@@ -239,18 +239,18 @@ class ShopPage(BasicPage):
             return
         import cx_Oracle
         try:
-            products_query = "DELETE FROM products WHERE shop_id = '{}'".format(shop_id)
+            products_query = "DELETE FROM pbd_products WHERE shop_id = '{}'".format(shop_id)
             self.controller.run_query(products_query)
         except cx_Oracle.IntegrityError:
             from tkinter import messagebox
             messagebox.showinfo("Delete Error", "Can't delete shop because orders are present")
             return
 
-        location_id_query = "SELECT location_id from locations where street_address='{}' and city='{}' and country='{}'".format(
+        location_id_query = "SELECT location_id from pbd_locations where street_address='{}' and city='{}' and country='{}'".format(
             street, city, country)
         location_id = self.controller.run_query(location_id_query)[0][0]
 
-        delete_query = "DELETE FROM shops WHERE shop_name='{}' and location_id = '{}'".format(shop_name, location_id)
+        delete_query = "DELETE FROM pbd_shops WHERE shop_name='{}' and location_id = '{}'".format(shop_name, location_id)
         self.controller.run_query(delete_query)
         self.populate_the_table_with_all_values()
 
@@ -259,7 +259,7 @@ class ShopPage(BasicPage):
         street_name_temp = street_name.replace('\'', '\'\'')
         city_name_temp = city_name.replace('\'', '\'\'')
         country_name_temp = country_name.replace('\'', '\'\'')
-        query = "SELECT shop_id, shop_name, street_address, city, country from shops s, locations l where s.location_id = l.location_id and " \
+        query = "SELECT shop_id, shop_name, street_address, city, country from pbd_shops s, pbd_locations l where s.location_id = l.location_id and " \
                 "lower(s.shop_name)='{}'and lower(l.street_address) = '{}' and lower(l.city) = '{}' and lower(l.country) = '{}'".format(shop_name_temp.lower(), street_name_temp.lower(), city_name_temp.lower(), country_name_temp.lower())
         query_select = self.controller.run_query(query)
         return query_select
@@ -278,10 +278,10 @@ class ShopPage(BasicPage):
             street_name = self.controller.add_escape_characters(street_name)
             country_name = self.controller.add_escape_characters(country_name)
             city_name = self.controller.add_escape_characters(city_name)
-            query = "SELECT shop_id, shop_name, street_address, city, country from {} s, {} l where s.location_id = l.location_id and " \
+            query = "SELECT shop_id, shop_name, street_address, city, country from pbd_shops s, pbd_locations l where s.location_id = l.location_id and " \
                     "lower(shop_name) like '%{}%' escape '#' and lower(street_address) like '%{}%' escape '#' " \
                     "and lower(city) like '%{}%' escape '#' and lower(country) like '%{}%' escape '#'".format(
-                'shops', 'locations', shop_name.lower(), street_name.lower(), city_name.lower(), country_name.lower())
+                shop_name.lower(), street_name.lower(), city_name.lower(), country_name.lower())
             query_select = self.controller.run_query(query)
             for row in self.search_for_shop(shop_name, street_name, country_name, city_name):
                 self.table.insert('', 'end', values=row)
@@ -349,7 +349,7 @@ class ShopPage(BasicPage):
             messagebox.showinfo("Insert Error", "Shop Already Exists")
             return
 
-        insert_query = "INSERT INTO shops (shop_name, location_id) VALUES ('{}', '{}')".format(shop_name, location_id)
+        insert_query = "INSERT INTO pbd_shops (shop_name, location_id) VALUES ('{}', '{}')".format(shop_name, location_id)
         self.controller.run_query(insert_query)
         self.populate_the_table_with_all_values()
 
@@ -409,11 +409,11 @@ class ShopPage(BasicPage):
         city_to_delete = self.city_name_var.get().replace('\'', '\'\'')
         country_to_delete = self.country_name_var.get().replace('\'', '\'\'')
 
-        location_id_query = "SELECT location_id from locations where street_address='{}' and city='{}' and country='{}'".format(
+        location_id_query = "SELECT location_id from pbd_locations where street_address='{}' and city='{}' and country='{}'".format(
             street_to_delete, city_to_delete, country_to_delete)
         location_id_to_delete = self.controller.run_query(location_id_query)[0][0]
 
-        insert_query = "UPDATE shops SET shop_name = '{}', location_id={} WHERE shop_name='{}' AND location_id={}".format(shop_name, location_id, shop_name_to_delete, location_id_to_delete)
+        insert_query = "UPDATE pbd_shops SET shop_name = '{}', location_id={} WHERE shop_name='{}' AND location_id={}".format(shop_name, location_id, shop_name_to_delete, location_id_to_delete)
         self.controller.run_query(insert_query)
         self.populate_the_table_with_all_values()
 
@@ -426,8 +426,8 @@ class ShopPage(BasicPage):
                 messagebox.showinfo("Search Error", "Shop Id invalid")
                 return
             else:
-                query = "SELECT shop_id, shop_name, street_address, city, country from {} s, {} l where s.location_id = l.location_id and s.shop_id={}".format(
-                    'shops', 'locations', name)
+                query = "SELECT shop_id, shop_name, street_address, city, country from pbd_shops s, pbd_locations l where s.location_id = l.location_id and s.shop_id={}".format(
+                    name)
                 query_select = self.controller.run_query(query)
                 self.table.clear_table()
                 for row in query_select:
@@ -436,7 +436,7 @@ class ShopPage(BasicPage):
             name = self.shop_name_search.get()
             name = self.controller.add_escape_characters(name)
             query = "SELECT shop_id, shop_name, street_address, city, country from {} s, {} l where s.location_id = l.location_id and lower(shop_name) like '%{}%' escape '#'".format(
-                    'shops', 'locations', name.lower())
+                    'pbd_shops', 'pbd_locations', name.lower())
             self.search(name, query)
 
     def search_street(self):
@@ -445,7 +445,7 @@ class ShopPage(BasicPage):
         name = self.street_name_search.get()
         name = self.controller.add_escape_characters(name)
         query = "SELECT shop_id, shop_name, street_address, city, country from {} s, {} l where s.location_id = l.location_id and lower(street_address) like '%{}%' escape '#'".format(
-            'shops', 'locations', name.lower())
+            'pbd_shops', 'pbd_locations', name.lower())
         self.search(name, query)
 
     def search_country(self):
@@ -454,7 +454,7 @@ class ShopPage(BasicPage):
         name = self.country_name_search.get()
         name = self.controller.add_escape_characters(name)
         query = "SELECT shop_id, shop_name, street_address, city, country from {} s, {} l where s.location_id = l.location_id and lower(country) like '%{}%' escape '#'".format(
-            'shops', 'locations', name.lower())
+            'pbd_shops', 'pbd_locations', name.lower())
         self.search(name, query)
 
     def search_city(self):
@@ -463,7 +463,7 @@ class ShopPage(BasicPage):
         name = self.city_name_search.get()
         name = self.controller.add_escape_characters(name)
         query = "SELECT shop_id, shop_name, street_address, city, country from {} s, {} l where s.location_id = l.location_id and lower(city) like '%{}%' escape '#'".format(
-            'shops', 'locations', name.lower())
+            'pbd_shops', 'pbd_locations', name.lower())
         self.search(name, query)
 
     def search(self, name, query):
@@ -478,12 +478,12 @@ class ShopPage(BasicPage):
     def populate_the_table_with_all_values(self):
         self.table.clear_table()
         query_select = self.controller.run_query(
-            "SELECT shop_id, shop_name, street_address, city, country from {} s, {} l where s.location_id = l.location_id".format('shops', 'locations'))
+            "SELECT shop_id, shop_name, street_address, city, country from {} s, {} l where s.location_id = l.location_id".format('pbd_shops', 'pbd_locations'))
         for row in query_select:
             self.table.insert('', 'end', values=row)
 
     def shop_exists(self, shop_name, location_id):
         query_select = self.controller.run_query(
-            "SELECT shop_id from shops s where lower(s.shop_name) = '{}' and s.location_id = {}".format(
+            "SELECT shop_id from pbd_shops s where lower(s.shop_name) = '{}' and s.location_id = {}".format(
                 shop_name.lower(), location_id))
         return bool(query_select)
