@@ -25,7 +25,7 @@ class TitlePage(tk.Frame):
         for i in range(2):
             title_frame.grid_columnconfigure(i, weight=1)
 
-        tk.Label(master=title_frame, text="BD", font=self.title_font, fg='red', bg=title_frame['bg']).grid(row=0,
+        tk.Label(master=title_frame, text="PBD", font=self.title_font, fg='red', bg=title_frame['bg']).grid(row=0,
                                                                                                            column=0,
                                                                                                            sticky='e')
         tk.Label(title_frame, text="Express", font=self.title_font, fg=self.title_color, bg=title_frame['bg']).grid(
@@ -148,7 +148,4 @@ class BasicPage(TitlePage):
 
     def on_shipping_button(self):
         self.controller.show_frame('ShippingPage')
-
-
-
 

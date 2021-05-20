@@ -63,6 +63,14 @@ INSERT INTO pbd_shipping_methods (provider, delivering_price) VALUES ('China Pos
 INSERT INTO pbd_app_users (first_name, last_name, location_id, email, phone) VALUES ('Marin','Moisii',
     (SELECT location_id FROM pbd_locations WHERE street_address='Str. Tudor Vladimirescu' AND city='Iasi' AND country='Romania'),
     'marin.moisii@yahoo.com', '0701234567');
+   
+INSERT INTO pbd_app_users (first_name, last_name, location_id, email, phone) VALUES ('Gabi','Strilciuc',
+    (SELECT location_id FROM pbd_locations WHERE street_address='Str. Tudor Vladimirescu' AND city='Iasi' AND country='Romania'),
+    'gabi.strilciuc@yahoo.com', '07042434567');
+    
+INSERT INTO pbd_app_users (first_name, last_name, location_id, email, phone) VALUES ('Alex','Muraru',
+    (SELECT location_id FROM pbd_locations WHERE street_address='Str. Tudor Vladimirescu' AND city='Iasi' AND country='Romania'),
+    'alex.muraru@yahoo.com', '07012234567');
     
 INSERT INTO pbd_app_users (first_name, last_name, location_id, email, phone) VALUES ('Alex','Ilioi',
     (SELECT location_id FROM pbd_locations WHERE street_address='Str. Tudor Vladimirescu' AND city='Iasi' AND country='Romania'),
@@ -97,8 +105,10 @@ INSERT INTO pbd_app_users (first_name, last_name, location_id, email, phone) VAL
     'georgiana.atomei@gmail.com', '0701234444');
 
 /* pbd_accounts */
+INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ((SELECT user_id from pbd_app_users where email='alex.muraru@yahoo.com'), 'alex1', '93bc9a547f72295d3f57c38a4e2e52d8', 'admin');
+INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ((SELECT user_id from pbd_app_users where email='gabi.strilciuc@yahoo.com'), 'gabi', '5673c482e64924a896f0011f682f0ba5', 'admin');
 INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ((SELECT user_id from pbd_app_users where email='marin.moisii@yahoo.com'), 'marin', 'a00b68b047f33d36e7c02ccb42095e90', 'admin');
-INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ((SELECT user_id from pbd_app_users where email='alex.ilioi@yahoo.com'), 'alex', 'b78433c1c35669aa7e15d4312667292a', 'admin_shop');
+INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ((SELECT user_id from pbd_app_users where email='alex.ilioi@yahoo.com'), 'alex2', 'b78433c1c35669aa7e15d4312667292a', 'admin_shop');
 INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ((SELECT user_id from pbd_app_users where email='maria.mesina@yahoo.com'), 'maria', '2eea9f8dd350bf5422108c708d058142', 'admin_ship');
 INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ((SELECT user_id from pbd_app_users where email='mihai.heghea@yahoo.com'), 'mihai', 'e065688e8076db398d1ca47cb2986504', 'client');
 INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ((SELECT user_id from pbd_app_users where email='petru.petrica@yahoo.com'), 'petru', 'd678d6653e56945829dcb6182c33c8a1', 'client');

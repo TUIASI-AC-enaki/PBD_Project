@@ -81,7 +81,7 @@ class LoginPage(TitlePage):
         pass_encrypted = Cipher.encrypt(password)
         log.info("Password encrypted: {}".format(pass_encrypted.decode()))
         password = Cipher.decrypt(pass_encrypted)
-        #log.info("Password decrypted: {}".format(password))
+        log.info("Password decrypted: {}".format(password))
         #end encryption and decryption part
 
         # --------Get hash of password

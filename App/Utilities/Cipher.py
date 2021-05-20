@@ -22,6 +22,8 @@ class Cipher:
 
 
 users = {
+    'gabi': 'strilciuc',
+    'alex_muraru': 'muraru',
     'marin': 'moisii',
     'alex': 'ilioi0',
     'maria': 'mesina',
