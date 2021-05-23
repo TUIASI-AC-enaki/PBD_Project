@@ -7,12 +7,13 @@ CREATE OR REPLACE PACKAGE shipping_pack IS
         p_provider IN pbd_shipping_methods.provider%TYPE
     );
     PROCEDURE update_item(
-        p_id IN pbd_shipping_methods.shipping_id%TYPE,
-        p_provider IN pbd_shipping_methods.provider%TYPE DEFAULT NULL,
-        p_delivering_price IN pbd_shipping_methods.delivering_price%TYPE DEFAULT NULL
+        p_provider_old IN pbd_shipping_methods.provider%TYPE,
+        p_provider IN pbd_shipping_methods.provider%TYPE,
+        p_delivering_price IN pbd_shipping_methods.delivering_price%TYPE
     );
 END shipping_pack;
 /
+
 CREATE OR REPLACE PACKAGE BODY shipping_pack IS
     PROCEDURE insert_item(
         p_provider IN pbd_shipping_methods.provider%TYPE, 
@@ -25,41 +26,33 @@ CREATE OR REPLACE PACKAGE BODY shipping_pack IS
     PROCEDURE delete_item(
         p_provider IN pbd_shipping_methods.provider%TYPE
     ) IS
-        e_no_parameter EXCEPTION;
-        PRAGMA EXCEPTION_INIT(e_no_parameter, -2292);
     BEGIN
-        IF p_provider IS NOT NULL THEN
-            DELETE FROM pbd_shipping_methods WHERE provider = p_provider;
-        ELSE
-            RAISE e_no_parameter;
-        END IF;
-    EXCEPTION
-        WHEN e_no_parameter THEN
-            RAISE_APPLICATION_ERROR(-20100, 'Nu a fost oferit nici un parametru functiei de delete.');
+        DELETE FROM pbd_shipping_methods WHERE provider = p_provider;
     END;
     
     PROCEDURE update_item(
-        p_id IN pbd_shipping_methods.shipping_id%TYPE,
-        p_provider IN pbd_shipping_methods.provider%TYPE DEFAULT NULL,
-        p_delivering_price IN pbd_shipping_methods.delivering_price%TYPE DEFAULT NULL
+        p_provider_old IN pbd_shipping_methods.provider%TYPE,
+        p_provider IN pbd_shipping_methods.provider%TYPE,
+        p_delivering_price IN pbd_shipping_methods.delivering_price%TYPE
     ) IS
-        e_no_parameter EXCEPTION;
-        PRAGMA EXCEPTION_INIT(e_no_parameter, -2294);
     BEGIN
-        IF p_provider IS NULL AND p_delivering_price IS NULL THEN
-            RAISE e_no_parameter;
-        END IF;
-        
-        IF p_provider IS NOT NULL THEN
-            UPDATE pbd_shipping_methods SET provider = p_provider WHERE shipping_id = p_id;
-        END IF;
-        
-        IF p_delivering_price IS NOT NULL THEN
-            UPDATE pbd_shipping_methods SET delivering_price = p_delivering_price WHERE shipping_id = p_id;
-        END IF;
-        
+        UPDATE pbd_shipping_methods SET provider = p_provider, delivering_price = p_delivering_price WHERE provider = p_provider_old;
         EXCEPTION
-            WHEN e_no_parameter THEN
-                RAISE_APPLICATION_ERROR(-20100, 'Nu a fost oferit nici un parametru functiei de update.');
+            WHEN OTHERS THEN
+                RAISE_APPLICATION_ERROR(-20222, 'Eroare generala.');
     END;
 END shipping_pack;
+/
+CREATE OR REPLACE TRIGGER trg_delete_shipping
+BEFORE DELETE ON pbd_shipping_methods
+FOR EACH ROW
+DECLARE
+    v_provider_id pbd_shipping_methods.shipping_id%TYPE;
+    v_temp NUMBER := 0;
+BEGIN
+    SELECT count(*) into v_temp FROM pbd_orders WHERE shipping_id = :old.shipping_id;
+    
+    IF v_temp > 0 THEN
+        RAISE_APPLICATION_ERROR(-20200, 'Inregistrarea nu poate fi stearsa. Exista dependente externe.');
+    END IF;
+END;
