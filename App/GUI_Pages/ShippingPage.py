@@ -256,9 +256,9 @@ class ShippingPage(BasicPage):
         name = name.replace('\'', '\'\'')
         try:
             self.controller.run_procedure('SHIPPING_PACK.delete_item', [name])
-        except cx_Oracle.IntegrityError as exc:
+        except cx_Oracle.DatabaseError as exc_db_err:
             from tkinter import messagebox
-            messagebox.showinfo("Delete Error", "Can't delete shipping.\n{}".format(exc))
+            messagebox.showinfo("Delete Error", "Can't delete shipping.\n{}".format(exc_db_err))
             return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
@@ -297,9 +297,9 @@ class ShippingPage(BasicPage):
         name = name.replace('\'', '\'\'')
         try:
             self.controller.run_procedure('SHIPPING_PACK.insert_item', [name, price])
-        except cx_Oracle.IntegrityError as exc:
+        except cx_Oracle.DatabaseError as exc_db_err:
             from tkinter import messagebox
-            messagebox.showinfo("Insert error", "Can't insert shipping.\n{}".format(exc))
+            messagebox.showinfo("Insert error", "Can't insert shipping.\n{}".format(exc_db_err))
             return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
