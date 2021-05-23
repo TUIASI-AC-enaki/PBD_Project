@@ -1,6 +1,7 @@
 CREATE OR REPLACE PACKAGE LOCATION_PKG IS
     FUNCTION get_location_id(v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE) RETURN pbd_locations.location_id%TYPE;
-    PROCEDURE insert_location(v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE);
+    FUNCTION get_location_id_with_upsert(v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE) RETURN pbd_locations.location_id%TYPE;
+	PROCEDURE insert_location(v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE);
 END LOCATION_PKG;
 /
 
@@ -25,6 +26,18 @@ CREATE OR REPLACE PACKAGE BODY LOCATION_PKG IS
             RETURN -1;
     END;
     
+	FUNCTION get_location_id_with_upsert(v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE) 
+    RETURN pbd_locations.location_id%TYPE
+    IS
+        v_location_id pbd_locations.location_id%TYPE;
+    BEGIN
+        v_location_id :=  LOCATION_PKG.get_location_id(v_street, v_city, v_country);
+        IF (v_location_id = -1) THEN
+            LOCATION_PKG.insert_location(v_street, v_city, v_country);
+            v_location_id :=  LOCATION_PKG.get_location_id(v_street, v_city, v_country);
+        END IF;
+		RETURN v_location_id;
+    END;
     
     PROCEDURE insert_location(v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE)
     IS
@@ -51,12 +64,7 @@ CREATE OR REPLACE PACKAGE BODY SHOP_PKG IS
     IS
         v_location_id pbd_locations.location_id%TYPE;
     BEGIN
-        v_location_id :=  LOCATION_PKG.get_location_id(v_street, v_city, v_country);
-        IF (v_location_id = -1) THEN
-            LOCATION_PKG.insert_location(v_street, v_city, v_country);
-            v_location_id :=  LOCATION_PKG.get_location_id(v_street, v_city, v_country);
-        END IF;
-        
+        v_location_id :=  LOCATION_PKG.get_location_id_with_upsert(v_street, v_city, v_country);
         INSERT INTO pbd_shops (shop_name, location_id) VALUES (v_shop_name, v_location_id);
     END;
     
@@ -67,12 +75,7 @@ CREATE OR REPLACE PACKAGE BODY SHOP_PKG IS
         v_location_id pbd_locations.location_id%TYPE;
         v_location_id_to_be_updated pbd_locations.location_id%TYPE;
     BEGIN
-        v_location_id :=  LOCATION_PKG.get_location_id(v_street, v_city, v_country);
-        IF (v_location_id = -1) THEN
-            LOCATION_PKG.insert_location(v_street, v_city, v_country);
-            v_location_id :=  LOCATION_PKG.get_location_id(v_street, v_city, v_country);
-        END IF;
-        
+        v_location_id :=  LOCATION_PKG.get_location_id_with_upsert(v_street, v_city, v_country);
         v_location_id_to_be_updated :=  LOCATION_PKG.get_location_id(v_street_to_be_updated, v_city_to_be_updated, v_country_to_be_updated);
         UPDATE pbd_shops SET shop_name = v_shop_name, location_id=v_location_id WHERE shop_name=v_shop_name_to_be_updated AND location_id=v_location_id_to_be_updated;
     END;

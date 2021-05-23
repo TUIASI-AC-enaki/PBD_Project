@@ -34,8 +34,8 @@ class ShopPage(BasicPage):
         self.init_update_frame(viewer_frame)
         self.init_delete_frame(viewer_frame)
 
-        query = list(map("".join, self.controller.get_columns_name('shops')))[:2]
-        query.extend(list(map("".join, self.controller.get_columns_name('locations')))[1:])
+        query = list(map("".join, self.controller.get_columns_name('pbd_shops')))[:2]
+        query.extend(list(map("".join, self.controller.get_columns_name('pbd_locations')))[1:])
         self.table = TableFrame(viewer_frame, query)
         self.table.grid(row=2, column=0, columnspan=4, sticky="nesw", padx=5, pady=5)
         self.populate_the_table_with_all_values()
