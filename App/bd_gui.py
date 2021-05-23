@@ -73,6 +73,15 @@ class BdGui(tk.Tk):
             return None
         return query_results
 
+    def get_complex_type_var(self, type_name):
+        with self.conn.cursor() as cursor:
+            objType = self.conn.gettype(type_name)
+            return cursor.var(objType)
+
+    def get_basic_type_var(self, type_name):
+        with self.conn.cursor() as cursor:
+            return cursor.var(type_name)
+
     def run_procedure(self, procedure_name, params):
         cursor = self.conn.cursor()
         try:
@@ -88,6 +97,10 @@ class BdGui(tk.Tk):
     def get_columns_name(self, table_name):
         query = "SELECT column_name FROM USER_TAB_COLUMNS WHERE lower(table_name) = '{}'".format(table_name)
         return self.run_query(query)
+
+    @staticmethod
+    def get_dict_from_oracle_object(result):
+        return {attribute.name.lower(): result.getvalue().__getattribute__(attribute.name) for attribute in result.type.attributes}
 
     @staticmethod
     def add_escape_characters(name):

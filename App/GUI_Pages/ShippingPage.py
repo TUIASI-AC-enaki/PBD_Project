@@ -34,7 +34,7 @@ class ShippingPage(BasicPage):
         self.init_update_frame(viewer_frame)
         self.init_delete_frame(viewer_frame)
 
-        columns_names = list(map("".join, self.controller.get_columns_name('shipping_methods')))
+        columns_names = list(map("".join, self.controller.get_columns_name('pbd_shipping_methods')))
         self.table = TableFrame(viewer_frame, columns_names)
         self.table.grid(row=2, column=0, columnspan=4, sticky="nesw", padx=5, pady=5)
         self.populate_the_table_with_all_values()

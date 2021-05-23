@@ -4,6 +4,9 @@ from tkinter import font as tkfont, ttk
 import logging as log
 import sys
 
+import cx_Oracle
+from cx_Oracle import DatabaseError
+
 from GUI_Pages.BasicPage import TitlePage
 from Utilities.Cipher import Cipher, get_hash
 
@@ -248,18 +251,6 @@ class SignUpPage(TitlePage):
             from tkinter import messagebox
             messagebox.showinfo("Last Name Error", "Last Name should contains only letters and spaces")
             return
-        location_id = self.insert_or_get_location(street_address, city, country)
-        last_name = last_name.replace('\'', '\'\'')
-        first_name = first_name.replace('\'', '\'\'')
-        email = email.replace('\'', '\'\'')
-        username = username.replace('\'', '\'\'')
-        #password = password.replace('\'', '\'\'')
-        user_level = user_level.replace('\'', '\'\'')
-
-        query = "INSERT INTO pbd_app_users (first_name, last_name, location_id, email, phone) VALUES ('{}', '{}', {}, '{}', '{}')".format(first_name, last_name, location_id, email, phone)
-        self.controller.run_query(query)
-        user_id = self.get_user_id_by_email(self.email_entry.get().strip())
-        log.info("User Id Created : {}".format(user_id))
 
         # -------Use encryption when sending data across internet
         pass_encrypted = Cipher.encrypt(password)
@@ -272,8 +263,17 @@ class SignUpPage(TitlePage):
         password = get_hash(password)
         log.info("Password Hash: {}".format(password))
 
-        query = "INSERT INTO pbd_accounts (user_id, username, password, account_type) VALUES ({}, '{}', '{}', '{}')".format(user_id[0], username, password, user_level)
-        self.controller.run_query(query)
+        try:
+            user_id = self.controller.get_basic_type_var(cx_Oracle.NUMBER)
+            self.controller.run_procedure('auth_pkg.signup',
+                                          [username, password, user_level, street_address, city, country, first_name,
+                                           last_name, email, phone, user_id])
+            log.info("User Id Created : {}".format(user_id))
+
+        except DatabaseError as e:
+            log.info("SignUp Failed")
+            return
+
         from tkinter import messagebox
         messagebox.showinfo("Sign Up", "Account Created Succesfully")
         self.controller.show_frame('LoginPage')
