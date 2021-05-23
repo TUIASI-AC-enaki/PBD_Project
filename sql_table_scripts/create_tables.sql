@@ -10,7 +10,7 @@ CREATE TABLE pbd_shops(
     shop_id NUMBER(4) NOT NULL,
     shop_name VARCHAR2(20) NOT NULL,
     location_id NUMBER(4) NOT NULL,
-    stonks NUMBER DEFAULT 100,
+    stocks NUMBER DEFAULT 100,
     CONSTRAINT shop_id_pk PRIMARY KEY(shop_id),
     CONSTRAINT shop_location_id_fk FOREIGN KEY (location_id) REFERENCES pbd_locations,
     CONSTRAINT shop_uk UNIQUE (shop_name, location_id));

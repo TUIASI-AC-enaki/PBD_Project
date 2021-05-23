@@ -3,7 +3,7 @@ BEFORE INSERT OR UPDATE ON pbd_products
 FOR EACH ROW
 DECLARE
     v_total_cost NUMBER;
-    v_stonks NUMBER;
+    v_stocks NUMBER;
     v_percent_from_total_cost NUMBER := 0.5;
 BEGIN
     v_total_cost := :new.available_quantity * :new.price;
@@ -12,12 +12,12 @@ BEGIN
     END IF;
     v_total_cost := v_percent_from_total_cost * v_total_cost;
     
-    SELECT stonks INTO v_stonks FROM pbd_shops WHERE shop_id = :new.shop_id;
-    IF (v_stonks < v_total_cost) THEN
-        RAISE_APPLICATION_ERROR(-20102, 'Not enough stonks in shop ' || :new.shop_id || '. Required: ' || v_total_cost || ', but there are ' || v_stonks);
+    SELECT stocks INTO v_stocks FROM pbd_shops WHERE shop_id = :new.shop_id;
+    IF (v_stocks < v_total_cost) THEN
+        RAISE_APPLICATION_ERROR(-20102, 'Not enough stocks in shop ' || :new.shop_id || '. Required: ' || v_total_cost || ', but there are ' || v_stocks);
     END IF;
     
-    UPDATE pbd_shops SET stonks = v_stonks - v_total_cost WHERE shop_id = :new.shop_id;
+    UPDATE pbd_shops SET stocks = v_stocks - v_total_cost WHERE shop_id = :new.shop_id;
 END;
 /
 
@@ -50,7 +50,7 @@ BEGIN
     END IF;
     
     UPDATE pbd_products SET available_quantity = v_available_quantity WHERE product_id = :new.product_id;
-    UPDATE pbd_shops SET stonks = stonks + :new.total_amount WHERE shop_id = v_shop_id;
+    UPDATE pbd_shops SET stocks = stocks + :new.total_amount WHERE shop_id = v_shop_id;
 END;
 /
 
@@ -63,11 +63,6 @@ DECLARE
     
     v_inserted_product_id NUMBER;
 BEGIN
-    utils_pkg.print_product_status(v_product_id);
-    INSERT INTO pbd_products (product_name, price, available_quantity, shop_id, description) VALUES ('test', 100, 30, 3, '');
-    SELECT MAX(product_id) into v_inserted_product_id FROM pbd_products;
-    utils_pkg.print_product_status(v_inserted_product_id);
-
     utils_pkg.print_product_status(v_product_id);
     INSERT INTO pbd_orders (user_id, shipping_id, product_id, quantity) VALUES (v_user_id, v_shipping_id, v_product_id, v_quantity);
     utils_pkg.print_product_status(v_product_id);
