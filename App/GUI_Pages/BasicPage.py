@@ -18,6 +18,9 @@ class TitlePage(tk.Frame):
         self.title_color = 'dark orange'
         self.init_title()
 
+    def fetch_data(self):
+        pass
+
     def init_title(self):
         # ---------------Title------------------
         title_frame = tk.Frame(master=self, bg=self.parent['bg'])
@@ -148,4 +151,7 @@ class BasicPage(TitlePage):
 
     def on_shipping_button(self):
         self.controller.show_frame('ShippingPage')
+
+    def fetch_data(self):
+        pass
 

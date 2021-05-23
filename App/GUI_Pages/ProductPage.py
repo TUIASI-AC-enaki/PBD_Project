@@ -32,7 +32,7 @@ class ProductPage(BasicPage):
         self.init_update_frame(viewer_frame)
         self.init_delete_frame(viewer_frame)
 
-        columns_names = ['PRODUCT ID', 'PRODUCT NAME', 'PRICE', 'SHOP ID', 'DESCRIPTION']
+        columns_names = ['PRODUCT ID', 'PRODUCT NAME', 'PRICE', 'QUANTITY', 'SHOP ID', 'DESCRIPTION']
         self.table = TableFrame(viewer_frame, columns_names)
         self.table.grid(row=2, column=0, columnspan=4, sticky="nesw", padx=5, pady=5)
         self.populate_the_table_with_all_values()
@@ -46,13 +46,15 @@ class ProductPage(BasicPage):
         self.selected_item = event.widget.item(event.widget.selection()[0], "values")
         self.product_name_delete_var.set(self.selected_item[1])
         self.price_delete_var.set(self.selected_item[2])
-        self.shop_id_delete_var.set(self.selected_item[3])
-        self.description_delete_var.set(self.selected_item[4])
+        self.quantity_delete_var.set(self.selected_item[3])
+        self.shop_id_delete_var.set(self.selected_item[4])
+        self.description_delete_var.set(self.selected_item[5])
         from bd_gui import BdGui
         BdGui.set_entry_text(self.product_name_update, self.selected_item[1])
         BdGui.set_entry_text(self.price_update, self.selected_item[2])
-        BdGui.set_entry_text(self.shop_id_update, self.selected_item[3])
-        BdGui.set_entry_text(self.description_update, self.selected_item[4])
+        BdGui.set_entry_text(self.quantity_update, self.selected_item[3])
+        BdGui.set_entry_text(self.shop_id_update, self.selected_item[4])
+        BdGui.set_entry_text(self.description_update, self.selected_item[5])
 
     def init_search_frame(self, master, row=0, column=0):
         width_label = 7
@@ -98,6 +100,9 @@ class ProductPage(BasicPage):
         self.search_by_price_range_btn = tk.Button(option_search_frame, text='Search By Price Range', command=self.search_price_range, bg='light cyan',
                                                    fg='red')
         self.search_by_price_range_btn.grid(row=0, column=1, padx=5, pady=5)
+
+    def fetch_data(self):
+        self.populate_the_table_with_all_values()
 
     def on_check_product_id(self):
         pass
@@ -215,22 +220,29 @@ class ProductPage(BasicPage):
         self.price_insert = tk.Entry(price_insert_frame)
         self.price_insert.grid(row=0, column=1, padx=5, pady=5)
 
+        quantity_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
+        quantity_insert_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
+        tk.Label(quantity_insert_frame, text='Quantity', bg=quantity_insert_frame['bg'], fg='dark orange',
+                 width=width_label).grid(row=0, column=0)
+        self.quantity_insert = tk.Entry(quantity_insert_frame)
+        self.quantity_insert.grid(row=0, column=1, padx=5, pady=5)
+
         shop_id_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
-        shop_id_insert_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
+        shop_id_insert_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
         tk.Label(shop_id_insert_frame, text='Shop Id', bg=shop_id_insert_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.shop_id_insert = tk.Entry(shop_id_insert_frame)
         self.shop_id_insert.grid(row=0, column=1, padx=5, pady=5)
 
         description_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
-        description_insert_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        description_insert_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
         tk.Label(description_insert_frame, text='Description', bg=description_insert_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.description_insert = tk.Entry(description_insert_frame)
         self.description_insert.grid(row=0, column=1, padx=5, pady=5)
 
         tk.Button(self.insert_frame, text='Insert', command=self.insert, bg='light cyan',
-                  fg='red').grid(row=4, column=0, padx=5, pady=5)
+                  fg='red').grid(row=5, column=0, padx=5, pady=5)
 
     def init_update_frame(self, master, row=0, column=2):
         width_label = 13
@@ -251,22 +263,29 @@ class ProductPage(BasicPage):
         self.price_update = tk.Entry(price_update_frame)
         self.price_update.grid(row=0, column=1, padx=5, pady=5)
 
+        quantity_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
+        quantity_update_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
+        tk.Label(quantity_update_frame, text='Quantity', bg=quantity_update_frame['bg'], fg='dark orange',
+                 width=width_label).grid(row=0, column=0)
+        self.quantity_update = tk.Entry(quantity_update_frame)
+        self.quantity_update.grid(row=0, column=1, padx=5, pady=5)
+
         shop_id_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
-        shop_id_update_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
+        shop_id_update_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
         tk.Label(shop_id_update_frame, text='Shop Id', bg=shop_id_update_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.shop_id_update = tk.Entry(shop_id_update_frame)
         self.shop_id_update.grid(row=0, column=1, padx=5, pady=5)
 
         description_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
-        description_update_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        description_update_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
         tk.Label(description_update_frame, text='Description', bg=description_update_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.description_update = tk.Entry(description_update_frame)
         self.description_update.grid(row=0, column=1, padx=5, pady=5)
 
         tk.Button(self.update_frame, text='Update', command=self.update, bg='light cyan',
-                  fg='red').grid(row=4, column=0, padx=5, pady=5)
+                  fg='red').grid(row=5, column=0, padx=5, pady=5)
 
     def init_delete_frame(self, master, row=0, column=3):
         width_label = 13
@@ -288,22 +307,30 @@ class ProductPage(BasicPage):
         self.price_delete_var = tk.StringVar()
         tk.Label(price_delete_frame, textvariable=self.price_delete_var, width=width_text_label).grid(row=0, column=1, padx=5, pady=5)
 
+        quantity_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
+        quantity_delete_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
+        tk.Label(quantity_delete_frame, text='Quantity', bg=quantity_delete_frame['bg'], fg='dark orange',
+                 width=width_label).grid(row=0, column=0)
+        self.quantity_delete_var = tk.StringVar()
+        tk.Label(quantity_delete_frame, textvariable=self.quantity_delete_var, width=width_text_label).grid(row=0, column=1,
+                                                                                                      padx=5, pady=5)
+
         shop_id_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
-        shop_id_delete_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
+        shop_id_delete_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
         tk.Label(shop_id_delete_frame, text='Shop Id', bg=shop_id_delete_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.shop_id_delete_var = tk.StringVar()
         tk.Label(shop_id_delete_frame, textvariable=self.shop_id_delete_var, width=width_text_label).grid(row=0, column=1, padx=5, pady=5)
 
         description_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
-        description_delete_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        description_delete_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
         tk.Label(description_delete_frame, text='Description', bg=description_delete_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.description_delete_var = tk.StringVar()
         tk.Label(description_delete_frame, textvariable=self.description_delete_var, width=width_text_label).grid(row=0, column=1, padx=5, pady=5)
 
         tk.Button(self.delete_frame, text='Delete', command=self.delete, bg='light cyan',
-                  fg='red').grid(row=4, column=0, padx=5, pady=5)
+                  fg='red').grid(row=5, column=0, padx=5, pady=5)
 
     def delete(self):
         log.info("Delete product Page")
@@ -351,6 +378,7 @@ class ProductPage(BasicPage):
         log.info("Insert product Page")
         price = self.price_insert.get()
         shop_id = self.shop_id_insert.get()
+        quantity = self.quantity_insert.get()
 
         name = self.product_name_insert.get()
         if not self.string_length_is_okay(name, text='Product Name'):
@@ -370,6 +398,10 @@ class ProductPage(BasicPage):
             from tkinter import messagebox
             messagebox.showinfo("Insert Error", "Shop Id is not number")
             return
+        if not quantity.isdigit():
+            from tkinter import messagebox
+            messagebox.showinfo("Insert Error", "Quantity Id is not number")
+            return
         if not self.exist_shop_id(shop_id):
             from tkinter import messagebox
             messagebox.showinfo("Insert Error", "Shop Id does not exist")
@@ -378,11 +410,8 @@ class ProductPage(BasicPage):
         if self.fields_are_empty(name, price, shop_id) or self.product_exists(name, price, shop_id, description):
             return
 
-        name = name.replace('\'', '\'\'')
-        description = description.replace('\'', '\'\'')
-
         try:
-            self.controller.run_procedure('PRODUCTS_PACK.insert_item', [name, price, 10, shop_id, description])
+            self.controller.run_procedure('PRODUCTS_PACK.insert_item', [name, price, quantity, shop_id, description])
         except cx_Oracle.DatabaseError as exc_db_err:
             from tkinter import messagebox
             messagebox.showinfo("Insert error", "Can't insert product.\n{}"
@@ -400,6 +429,7 @@ class ProductPage(BasicPage):
 
         price = self.price_update.get()
         shop_id = self.shop_id_update.get()
+        quantity = self.quantity_update.get()
 
         name = self.product_name_update.get()
         if not self.string_length_is_okay(name, text='Product Name'):
@@ -413,26 +443,27 @@ class ProductPage(BasicPage):
 
         if not self.is_number(price):
             from tkinter import messagebox
-            messagebox.showinfo("Insert Error", "Price is not number")
+            messagebox.showinfo("Update Error", "Price is not number")
             return
         if not shop_id.isdigit():
             from tkinter import messagebox
-            messagebox.showinfo("Insert Error", "Shop Id is not number")
+            messagebox.showinfo("Update Error", "Shop Id is not number")
+            return
+        if not quantity.isdigit():
+            from tkinter import messagebox
+            messagebox.showinfo("Update Error", "Quantity is not number")
             return
         if not self.exist_shop_id(shop_id):
             from tkinter import messagebox
-            messagebox.showinfo("Insert Error", "Shop Id does not exist")
+            messagebox.showinfo("Update Error", "Shop Id does not exist")
             return
 
-        if self.fields_are_empty(name, price, shop_id) or self.product_exists(name, price, shop_id, description):
+        if self.fields_are_empty(name, price, shop_id): #or self.product_exists(name, price, shop_id, description):
             return
 
-        old_name = self.product_name_delete_var.get().replace('\'', '\'\'')
+        old_name = self.product_name_delete_var.get()
         old_price = self.price_delete_var.get()
         old_shop_id = self.shop_id_delete_var.get()
-
-        name = name.replace('\'', '\'\'')
-        description = description.replace('\'', '\'\'')
 
         if description == 'None':
             description = ''
@@ -443,6 +474,7 @@ class ProductPage(BasicPage):
                 [
                     name,
                     price,
+                    quantity,
                     shop_id,
                     description,
                     old_name,
@@ -461,7 +493,7 @@ class ProductPage(BasicPage):
 
     def populate_the_table_with_all_values(self):
         self.table.clear_table()
-        query_select = self.controller.run_query("SELECT product_id, product_name, price, shop_id, description from pbd_products")
+        query_select = self.controller.run_query("SELECT product_id, product_name, price, available_quantity as quantity, shop_id, description from pbd_products")
         for row in query_select:
             self.table.insert('', 'end', values=row)
 

@@ -7,8 +7,9 @@ DECLARE
     v_percent_from_total_cost NUMBER := 0.5;
 BEGIN
     v_total_cost := :new.available_quantity * :new.price;
+    
     IF UPDATING THEN
-        v_total_cost := v_total_cost - :old.available_quantity * :old.price;
+        UPDATE pbd_shops SET stocks = stocks + v_percent_from_total_cost*:old.available_quantity * :old.price WHERE shop_id = :old.shop_id;
     END IF;
     v_total_cost := v_percent_from_total_cost * v_total_cost;
     
@@ -18,6 +19,7 @@ BEGIN
     END IF;
     
     UPDATE pbd_shops SET stocks = v_stocks - v_total_cost WHERE shop_id = :new.shop_id;
+
 END;
 /
 

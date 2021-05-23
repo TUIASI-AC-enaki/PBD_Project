@@ -16,6 +16,9 @@ class ShopPage(BasicPage):
         super().__init__(parent, controller)
         self.init()
 
+    def fetch_data(self):
+        self.populate_the_table_with_all_values()
+
     def init(self):
         self.button_shop['bg'] = 'dark orange'
 
@@ -34,7 +37,7 @@ class ShopPage(BasicPage):
         self.init_update_frame(viewer_frame)
         self.init_delete_frame(viewer_frame)
 
-        query = list(map("".join, self.controller.get_columns_name('pbd_shops')))[:2]
+        query = list(map("".join, self.controller.get_columns_name('pbd_shops')))[:3]
         query.extend(list(map("".join, self.controller.get_columns_name('pbd_locations')))[1:])
         self.table = TableFrame(viewer_frame, query)
         self.table.grid(row=2, column=0, columnspan=4, sticky="nesw", padx=5, pady=5)
@@ -48,14 +51,16 @@ class ShopPage(BasicPage):
     def on_select(self, event):
         self.selected_item = event.widget.item(event.widget.selection()[0], "values")
         self.shop_name_var.set(self.selected_item[1])
-        self.street_name_var.set(self.selected_item[2])
-        self.city_name_var.set(self.selected_item[3])
-        self.country_name_var.set(self.selected_item[4])
+        self.stocks_name_var.set(self.selected_item[2])
+        self.street_name_var.set(self.selected_item[3])
+        self.city_name_var.set(self.selected_item[4])
+        self.country_name_var.set(self.selected_item[5])
         from bd_gui import BdGui
         BdGui.set_entry_text(self.shop_name_update_entry, self.selected_item[1])
-        BdGui.set_entry_text(self.street_name_update_entry, self.selected_item[2])
-        BdGui.set_entry_text(self.city_name_update_entry, self.selected_item[3])
-        BdGui.set_entry_text(self.country_name_update_entry, self.selected_item[4])
+        BdGui.set_entry_text(self.stocks_update_entry, self.selected_item[2])
+        BdGui.set_entry_text(self.street_name_update_entry, self.selected_item[3])
+        BdGui.set_entry_text(self.city_name_update_entry, self.selected_item[4])
+        BdGui.set_entry_text(self.country_name_update_entry, self.selected_item[5])
 
     def init_search_frame(self, master, row=0, column=0):
         width_label = 7
@@ -121,29 +126,36 @@ class ShopPage(BasicPage):
         self.shop_name_insert = tk.Entry(shop_insert_frame)
         self.shop_name_insert.grid(row=0, column=1, padx=5, pady=5)
 
+        stocks_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
+        stocks_insert_frame.grid(row=1, column=0, pady=5, padx=5, sticky='w')
+        tk.Label(stocks_insert_frame, text='Stocks: ', bg=stocks_insert_frame['bg'], fg='dark orange',
+                 width=width_label).grid(row=0, column=0)
+        self.stocks_name_insert = tk.Entry(stocks_insert_frame)
+        self.stocks_name_insert.grid(row=0, column=1, padx=5, pady=5)
+
         street_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
-        street_insert_frame.grid(row=1, column=0, pady=5, padx=5, sticky='w')
+        street_insert_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
         tk.Label(street_insert_frame, text='Street: ', bg=street_insert_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.street_name_insert = tk.Entry(street_insert_frame)
         self.street_name_insert.grid(row=0, column=1, padx=5, pady=5)
 
         city_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
-        city_insert_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
+        city_insert_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
         tk.Label(city_insert_frame, text='City: ', bg=city_insert_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.city_name_insert = tk.Entry(city_insert_frame)
         self.city_name_insert.grid(row=0, column=1, padx=5, pady=5)
 
         country_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
-        country_insert_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        country_insert_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
         tk.Label(country_insert_frame, text='Country: ', bg=country_insert_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.country_name_insert = tk.Entry(country_insert_frame)
         self.country_name_insert.grid(row=0, column=1, padx=5, pady=5)
 
         tk.Button(self.insert_frame, text='Insert', command=self.insert, bg='light cyan',
-                  fg='red').grid(row=4, column=0, padx=5, pady=5)
+                  fg='red').grid(row=5, column=0, padx=5, pady=5)
 
     def init_update_frame(self, master, row=0, column=2):
         width_label = 7
@@ -157,29 +169,36 @@ class ShopPage(BasicPage):
         self.shop_name_update_entry = tk.Entry(shop_update_frame)
         self.shop_name_update_entry.grid(row=0, column=1, padx=5, pady=5)
 
+        stocks_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
+        stocks_update_frame.grid(row=1, column=0, pady=5, padx=5, sticky='w')
+        tk.Label(stocks_update_frame, text='Stocks: ', bg=stocks_update_frame['bg'], fg='dark orange',
+                 width=width_label).grid(row=0, column=0)
+        self.stocks_update_entry = tk.Entry(stocks_update_frame)
+        self.stocks_update_entry.grid(row=0, column=1, padx=5, pady=5)
+
         street_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
-        street_update_frame.grid(row=1, column=0, pady=5, padx=5, sticky='w')
+        street_update_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
         tk.Label(street_update_frame, text='Street: ', bg=street_update_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.street_name_update_entry = tk.Entry(street_update_frame)
         self.street_name_update_entry.grid(row=0, column=1, padx=5, pady=5)
 
         city_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
-        city_update_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
+        city_update_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
         tk.Label(city_update_frame, text='City: ', bg=city_update_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.city_name_update_entry = tk.Entry(city_update_frame)
         self.city_name_update_entry.grid(row=0, column=1, padx=5, pady=5)
 
         country_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
-        country_update_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        country_update_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
         tk.Label(country_update_frame, text='Country: ', bg=country_update_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.country_name_update_entry = tk.Entry(country_update_frame)
         self.country_name_update_entry.grid(row=0, column=1, padx=5, pady=5)
 
         tk.Button(self.update_frame, text='Update', command=self.update, bg='light cyan',
-                  fg='red').grid(row=4, column=0, padx=5, pady=5)
+                  fg='red').grid(row=5, column=0, padx=5, pady=5)
 
     def init_delete_frame(self, master, row=0, column=3):
         width_label = 7
@@ -194,15 +213,23 @@ class ShopPage(BasicPage):
         self.shop_name_var = tk.StringVar()
         tk.Label(shop_delete_frame, textvariable=self.shop_name_var, width=width_text_label).grid(row=0, column=1, padx=5, pady=5)
 
+        stocks_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
+        stocks_delete_frame.grid(row=1, column=0, pady=5, padx=5, sticky='w')
+        tk.Label(stocks_delete_frame, text='Stocks: ', bg=stocks_delete_frame['bg'], fg='dark orange',
+                 width=width_label).grid(row=0, column=0)
+        self.stocks_name_var = tk.StringVar()
+        tk.Label(stocks_delete_frame, textvariable=self.stocks_name_var, width=width_text_label).grid(row=0, column=1,
+                                                                                                      padx=5, pady=5)
+
         street_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
-        street_delete_frame.grid(row=1, column=0, pady=5, padx=5, sticky='w')
+        street_delete_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
         tk.Label(street_delete_frame, text='Street: ', bg=street_delete_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.street_name_var = tk.StringVar()
         tk.Label(street_delete_frame, textvariable=self.street_name_var, width=width_text_label).grid(row=0, column=1, padx=5, pady=5)
 
         city_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
-        city_delete_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
+        city_delete_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
         tk.Label(city_delete_frame, text='City: ', bg=city_delete_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.city_name_var = tk.StringVar()
@@ -210,7 +237,7 @@ class ShopPage(BasicPage):
                                                                                                     padx=5, pady=5)
 
         country_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
-        country_delete_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        country_delete_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
         tk.Label(country_delete_frame, text='Country: ', bg=country_delete_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.country_name_var = tk.StringVar()
@@ -218,7 +245,7 @@ class ShopPage(BasicPage):
                                                                                                   padx=5, pady=5)
 
         tk.Button(self.delete_frame, text='Delete', command=self.delete, bg='light cyan',
-                  fg='red').grid(row=4, column=0, padx=5, pady=5)
+                  fg='red').grid(row=5, column=0, padx=5, pady=5)
 
     def delete(self):
         log.info("Delete Shop Page")
@@ -233,7 +260,7 @@ class ShopPage(BasicPage):
         country = self.country_name_var.get()
 
         try:
-            self.controller.run_procedure('SHOP_PKG.delete_shop', [street, shop_name, city, country])
+            self.controller.run_procedure('SHOP_PKG.delete_shop', [shop_name, street, city, country])
         except cx_Oracle.IntegrityError:
             from tkinter import messagebox
             messagebox.showinfo("Delete Error", "Can't delete shop because orders are present")
@@ -264,7 +291,7 @@ class ShopPage(BasicPage):
             street_name = self.controller.add_escape_characters(street_name)
             country_name = self.controller.add_escape_characters(country_name)
             city_name = self.controller.add_escape_characters(city_name)
-            query = "SELECT shop_id, shop_name, street_address, city, country from pbd_shops s, pbd_locations l where s.location_id = l.location_id and " \
+            query = "SELECT shop_id, shop_name, stocks, street_address, city, country from pbd_shops s, pbd_locations l where s.location_id = l.location_id and " \
                     "lower(shop_name) like '%{}%' escape '#' and lower(street_address) like '%{}%' escape '#' " \
                     "and lower(city) like '%{}%' escape '#' and lower(country) like '%{}%' escape '#'".format(
                 shop_name.lower(), street_name.lower(), city_name.lower(), country_name.lower())
@@ -272,7 +299,7 @@ class ShopPage(BasicPage):
             for row in self.search_for_shop(shop_name, street_name, country_name, city_name):
                 self.table.insert('', 'end', values=row)
 
-    def is_empty(self, shop_name, street, city, country):
+    def is_empty(self, shop_name, street, city, country, check_existence = True):
         from tkinter import messagebox
         if shop_name == '':
             messagebox.showinfo("Insert Error", "Shop Name required")
@@ -286,10 +313,11 @@ class ShopPage(BasicPage):
         if country == '':
             messagebox.showinfo("Insert Error", "Country Name required")
             return True
-        shops = self.search_for_shop(shop_name, street, city, country)
-        if shops:
-            messagebox.showinfo("Insert Error", "Shop already exists")
-            return True
+        if check_existence:
+            shops = self.search_for_shop(shop_name, street, city, country)
+            if shops:
+                messagebox.showinfo("Insert Error", "Shop already exists")
+                return True
         return False
 
     def insert(self):
@@ -299,6 +327,8 @@ class ShopPage(BasicPage):
         if not self.string_length_is_okay(shop_name, text='Shop Name'):
             return
         shop_name = shop_name.strip()
+
+        stocks = self.stocks_name_insert.get()
 
         street = self.street_name_insert.get()
         if not self.string_length_is_okay(street, text='Street Address', length=50):
@@ -318,6 +348,11 @@ class ShopPage(BasicPage):
         if self.is_empty(shop_name, street, city, country):
             return
 
+        if not self.is_number(stocks):
+            from tkinter import messagebox
+            messagebox.showinfo("Insert Error", "Stocks is not number")
+            return
+
         if not self.is_word_letters_and_spaces(country):
             from tkinter import messagebox
             messagebox.showinfo("Country Name Error", "Country Name should contains only letters and spaces")
@@ -326,7 +361,7 @@ class ShopPage(BasicPage):
             from tkinter import messagebox
             messagebox.showinfo("City Name Error", "City Name should contains only letters and spaces")
             return
-        self.controller.run_procedure('SHOP_PKG.insert_shop', [street, shop_name, city, country])
+        self.controller.run_procedure('SHOP_PKG.insert_shop', [shop_name, stocks, street, city, country])
         self.populate_the_table_with_all_values()
 
     def update(self):
@@ -341,6 +376,12 @@ class ShopPage(BasicPage):
         if not self.string_length_is_okay(shop_name, text='Shop Name'):
             return
         shop_name = shop_name.strip()
+
+        stocks = self.stocks_update_entry.get()
+        if not self.is_number(stocks):
+            from tkinter import messagebox
+            messagebox.showinfo("Update Error", "Stocks is not number")
+            return
 
         street = self.street_name_update_entry.get()
         if not self.string_length_is_okay(street, text='Street Address', length=50):
@@ -357,9 +398,9 @@ class ShopPage(BasicPage):
             return
         country = country.strip()
 
-        if shop_name == self.shop_name_var.get() and street == self.street_name_var.get() and city == self.city_name_var.get() and country == self.country_name_var.get():
+        if stocks == self.stocks_name_var.get() and shop_name == self.shop_name_var.get() and street == self.street_name_var.get() and city == self.city_name_var.get() and country == self.country_name_var.get():
             return
-        if self.is_empty(shop_name, street, city, country):
+        if self.is_empty(shop_name, street, city, country, check_existence=False):
             return
 
         if not self.is_word_letters_and_spaces(country):
@@ -371,14 +412,12 @@ class ShopPage(BasicPage):
             messagebox.showinfo("City Name Error", "City Name should contains only letters and spaces")
             return
 
-        shop_name = shop_name.replace('\'', '\'\'')
-
         shop_name_to_delete = self.shop_name_var.get()
         street_to_delete = self.street_name_var.get()
         city_to_delete = self.city_name_var.get()
         country_to_delete = self.country_name_var.get()
 
-        self.controller.run_procedure('SHOP_PKG.update_shop', [street, shop_name, city, country,
+        self.controller.run_procedure('SHOP_PKG.update_shop', [shop_name, stocks, street, city, country,
                                                                street_to_delete, shop_name_to_delete, city_to_delete, country_to_delete])
         self.populate_the_table_with_all_values()
 
@@ -443,7 +482,7 @@ class ShopPage(BasicPage):
     def populate_the_table_with_all_values(self):
         self.table.clear_table()
         query_select = self.controller.run_query(
-            "SELECT shop_id, shop_name, street_address, city, country from {} s, {} l where s.location_id = l.location_id".format('pbd_shops', 'pbd_locations'))
+            "SELECT shop_id, shop_name, stocks, street_address, city, country from {} s, {} l where s.location_id = l.location_id".format('pbd_shops', 'pbd_locations'))
         for row in query_select:
             self.table.insert('', 'end', values=row)
 

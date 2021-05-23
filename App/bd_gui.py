@@ -15,7 +15,7 @@ import sys
 FORMAT = '[%(asctime)s] [%(levelname)s] : %(message)s'
 log.basicConfig(stream=sys.stdout, level=log.DEBUG, format=FORMAT)
 
-# cx_Oracle.init_oracle_client(lib_dir="D:\Programs\oracle\instantclient_19_8")
+cx_Oracle.init_oracle_client(lib_dir="D:\Programs\oracle\instantclient_19_8")
 bd_config = {
     "username": os.environ.get("username_pbd_proiect"),
     "password": os.environ.get("password_pbd_proiect")
@@ -25,7 +25,7 @@ bd_config = {
 class BdGui(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
-        tk.Tk.wm_title(self, "BDExpress")
+        tk.Tk.wm_title(self, "PBDExpress")
 
         self.container = tk.Frame(self, bg='gray97')
         self.container.pack(side="top", fill="both", expand=True)
@@ -59,6 +59,7 @@ class BdGui(tk.Tk):
     def show_frame(self, name):
         frame = self.frames[name]
         frame.tkraise()
+        frame.fetch_data()
 
     def run_query(self, query):
         cursor = self.conn.cursor()
