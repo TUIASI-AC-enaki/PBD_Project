@@ -4,6 +4,8 @@ from tkinter import font as tkfont, ttk
 import logging as log
 import sys
 
+from cx_Oracle import DatabaseError
+
 from GUI_Pages.BasicPage import TitlePage
 from Utilities.Cipher import Cipher, get_hash
 
@@ -74,8 +76,8 @@ class LoginPage(TitlePage):
                 self.controller.set_state(self.controller.frames['ShippingPage'].delete_frame, 'normal')
 
     def on_login(self):
-        username = self.username_entry.get().replace('\'', '\'\'')
-        password = self.password_entry.get().replace('\'', '\'\'')
+        username = self.username_entry.get()
+        password = self.password_entry.get()
 
         #-------Use encryption when sending data across internet
         pass_encrypted = Cipher.encrypt(password)
@@ -88,27 +90,24 @@ class LoginPage(TitlePage):
         password = get_hash(password)
         log.info("Password Hash: {}".format(password))
 
-        query = "SELECT u.user_id, u.first_name, u.last_name, u.location_id, u.email, u.phone, a.account_type from pbd_app_users u, pbd_accounts a where u.user_id = a.user_id and a.username='{}' and a.password='{}'".format(username, password)
-        user_info = [item for t in self.controller.run_query(query) for item in t]
-        if user_info:
-            self.controller.user_info['user_id'] = user_info[0]
-            self.controller.user_info['first_name'] = user_info[1]
-            self.controller.user_info['last_name'] = user_info[2]
-            self.controller.user_info['location_id'] = user_info[3]
-            self.controller.user_info['email'] = user_info[4]
-            self.controller.user_info['phone'] = user_info[5]
-            self.controller.user_info['user_level'] = user_info[6]
-
-            self.controller.re_create_frames()
-            self.set_states(user_info[6])
-
-            self.controller.frames["HomePage"].home_page_welcome_label_var.set("Welcome {}".format(user_info[1]))
-            self.controller.frames["HomePage"].populate_the_table_with_all_values()
-            self.controller.show_frame("HomePage")
-        else:
+        try:
+            user_account_var = self.controller.get_complex_type_var('AUTH_PKG.USER_ACCOUNT')
+            self.controller.run_procedure('auth_pkg.login', [username, password, user_account_var])
+        except DatabaseError as e:
             log.info("Login Failed Incorect username as password")
-            from tkinter import messagebox
-            messagebox.showinfo("Login Failed", "Wrong username or password")
+            if e.args[0].code == 20100:
+                from tkinter import messagebox
+                messagebox.showinfo("Login Failed", "Wrong username or password")
+            return
+        user_info = self.controller.get_dict_from_oracle_object(user_account_var)
+
+        self.controller.user_info = user_info
+        self.controller.re_create_frames()
+        self.set_states(user_info['user_level'])
+
+        self.controller.frames["HomePage"].home_page_welcome_label_var.set("Welcome {}".format(user_info['first_name']))
+        self.controller.frames["HomePage"].populate_the_table_with_all_values()
+        self.controller.show_frame("HomePage")
 
     def on_sign_up(self):
         self.controller.show_frame("SignUpPage")

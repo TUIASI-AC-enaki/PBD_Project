@@ -1,5 +1,6 @@
 from tkinter import ttk
 
+import cx_Oracle
 from GUI_Pages.BasicPage import BasicPage
 import tkinter as tk
 from tkinter import font as tkfont
@@ -121,9 +122,22 @@ class HomePage(BasicPage):
             return
 
         try:
-            query = "INSERT INTO pbd_orders (user_id, shipping_id, product_id, quantity, total_amount) VALUES ({}, {}, {}, {}, {})"\
-                .format(self.controller.user_info['user_id'], shipping_id, product_id, amount, str(int(self.get_shipping_price(shipping_id)) + int(amount)*int(self.get_product_price(product_id)[0][0])))
-            self.controller.run_query(query)
+            self.controller.run_procedure(
+                'ORDERS_PACK.insert_item',
+                [
+                    self.controller.user_info['user_id'],
+                    shipping_id,
+                    product_id,
+                    amount,
+                    str(int(self.get_shipping_price(shipping_id)) +
+                        int(amount)*int(self.get_product_price(product_id)[0][0]))
+                ]
+            )
+        except cx_Oracle.DatabaseError as exc_db_err:
+            from tkinter import messagebox
+            messagebox.showinfo("Purchase error", "Can't purchase items.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
+            return
         except KeyError:
             messagebox.showinfo("Account Error", "User invalid")
             self.controller.show_frame('LoginPage')

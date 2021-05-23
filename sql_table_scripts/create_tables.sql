@@ -10,6 +10,7 @@ CREATE TABLE pbd_shops(
     shop_id NUMBER(4) NOT NULL,
     shop_name VARCHAR2(20) NOT NULL,
     location_id NUMBER(4) NOT NULL,
+    stocks NUMBER DEFAULT 100,
     CONSTRAINT shop_id_pk PRIMARY KEY(shop_id),
     CONSTRAINT shop_location_id_fk FOREIGN KEY (location_id) REFERENCES pbd_locations,
     CONSTRAINT shop_uk UNIQUE (shop_name, location_id));
@@ -18,12 +19,13 @@ CREATE TABLE pbd_products(
     product_id NUMBER(4) NOT NULL,
     product_name VARCHAR2(20) NOT NULL,
     price NUMBER(6, 2) NOT NULL,
+    available_quantity NUMBER NOT NULL,
     shop_id NUMBER(4) NOT NULL,
     description VARCHAR2(100),
     CONSTRAINT product_id_pk PRIMARY KEY(product_id),
     CONSTRAINT product_shop_id_fk FOREIGN KEY(shop_id) REFERENCES pbd_shops,
     CONSTRAINT price_range_ch CHECK (price > 0 and price < 1000000),
-    CONSTRAINT product_uk UNIQUE (product_name, price, shop_id, description));
+    CONSTRAINT product_uk UNIQUE (product_name, price, shop_id));
     
 CREATE TABLE pbd_shipping_methods(
     shipping_id NUMBER(4) NOT NULL,
@@ -59,7 +61,7 @@ CREATE TABLE pbd_orders(
     shipping_id NUMBER(4) NOT NULL,
     product_id NUMBER(4) NOT NULL,
     quantity NUMBER(4) NOT NULL,
-    total_amount NUMBER(10, 2) NOT NULL,
+    total_amount NUMBER(10, 2),
     date_ordered DATE DEFAULT sysdate NOT NULL,
     CONSTRAINT order_id_pk PRIMARY KEY(order_id), 
     CONSTRAINT order_user_id_fk FOREIGN KEY(user_id) REFERENCES pbd_app_users,

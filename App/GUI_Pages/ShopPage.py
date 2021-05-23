@@ -1,3 +1,5 @@
+import cx_Oracle
+
 from GUI_Pages.BasicPage import BasicPage
 from Utilities.TableFrame import TableFrame
 import tkinter as tk
@@ -32,8 +34,8 @@ class ShopPage(BasicPage):
         self.init_update_frame(viewer_frame)
         self.init_delete_frame(viewer_frame)
 
-        query = list(map("".join, self.controller.get_columns_name('shops')))[:2]
-        query.extend(list(map("".join, self.controller.get_columns_name('locations')))[1:])
+        query = list(map("".join, self.controller.get_columns_name('pbd_shops')))[:2]
+        query.extend(list(map("".join, self.controller.get_columns_name('pbd_locations')))[1:])
         self.table = TableFrame(viewer_frame, query)
         self.table.grid(row=2, column=0, columnspan=4, sticky="nesw", padx=5, pady=5)
         self.populate_the_table_with_all_values()
@@ -225,33 +227,17 @@ class ShopPage(BasicPage):
             messagebox.showinfo("Delete Error", "Item not selected")
             return
 
-        shop_name = self.shop_name_var.get().replace('\'', '\'\'')
-        street = self.street_name_var.get().replace('\'', '\'\'')
-        city = self.city_name_var.get().replace('\'', '\'\'')
-        country = self.country_name_var.get().replace('\'', '\'\'')
+        shop_name = self.shop_name_var.get()
+        street = self.street_name_var.get()
+        city = self.city_name_var.get()
+        country = self.country_name_var.get()
 
-        shop_id_query = "SELECT shop_id from pbd_shops s, pbd_locations l where s.location_id = l.location_id and s.shop_name = '{}' and l.street_address='{}' and l.city='{}' and l.country='{}'".format(shop_name, street, city, country)
         try:
-            shop_id = self.controller.run_query(shop_id_query)[0][0]
-        except IndexError:
-            from tkinter import messagebox
-            messagebox.showinfo("Delete Error", "Shop inexistent")
-            return
-        import cx_Oracle
-        try:
-            products_query = "DELETE FROM pbd_products WHERE shop_id = '{}'".format(shop_id)
-            self.controller.run_query(products_query)
+            self.controller.run_procedure('SHOP_PKG.delete_shop', [street, shop_name, city, country])
         except cx_Oracle.IntegrityError:
             from tkinter import messagebox
             messagebox.showinfo("Delete Error", "Can't delete shop because orders are present")
             return
-
-        location_id_query = "SELECT location_id from pbd_locations where street_address='{}' and city='{}' and country='{}'".format(
-            street, city, country)
-        location_id = self.controller.run_query(location_id_query)[0][0]
-
-        delete_query = "DELETE FROM pbd_shops WHERE shop_name='{}' and location_id = '{}'".format(shop_name, location_id)
-        self.controller.run_query(delete_query)
         self.populate_the_table_with_all_values()
 
     def search_for_shop(self, shop_name, street_name, city_name, country_name):
@@ -340,17 +326,7 @@ class ShopPage(BasicPage):
             from tkinter import messagebox
             messagebox.showinfo("City Name Error", "City Name should contains only letters and spaces")
             return
-
-        shop_name = shop_name.replace('\'', '\'\'')
-
-        location_id = self.insert_or_get_location(street, city, country)
-        if self.shop_exists(shop_name, location_id):
-            from tkinter import messagebox
-            messagebox.showinfo("Insert Error", "Shop Already Exists")
-            return
-
-        insert_query = "INSERT INTO pbd_shops (shop_name, location_id) VALUES ('{}', '{}')".format(shop_name, location_id)
-        self.controller.run_query(insert_query)
+        self.controller.run_procedure('SHOP_PKG.insert_shop', [street, shop_name, city, country])
         self.populate_the_table_with_all_values()
 
     def update(self):
@@ -395,26 +371,15 @@ class ShopPage(BasicPage):
             messagebox.showinfo("City Name Error", "City Name should contains only letters and spaces")
             return
 
-        location_id = self.insert_or_get_location(street, city, country)
-
         shop_name = shop_name.replace('\'', '\'\'')
 
-        if self.shop_exists(shop_name, location_id):
-            from tkinter import messagebox
-            messagebox.showinfo("Insert Error", "Shop Already Exists")
-            return
+        shop_name_to_delete = self.shop_name_var.get()
+        street_to_delete = self.street_name_var.get()
+        city_to_delete = self.city_name_var.get()
+        country_to_delete = self.country_name_var.get()
 
-        shop_name_to_delete = self.shop_name_var.get().replace('\'', '\'\'')
-        street_to_delete = self.street_name_var.get().replace('\'', '\'\'')
-        city_to_delete = self.city_name_var.get().replace('\'', '\'\'')
-        country_to_delete = self.country_name_var.get().replace('\'', '\'\'')
-
-        location_id_query = "SELECT location_id from pbd_locations where street_address='{}' and city='{}' and country='{}'".format(
-            street_to_delete, city_to_delete, country_to_delete)
-        location_id_to_delete = self.controller.run_query(location_id_query)[0][0]
-
-        insert_query = "UPDATE pbd_shops SET shop_name = '{}', location_id={} WHERE shop_name='{}' AND location_id={}".format(shop_name, location_id, shop_name_to_delete, location_id_to_delete)
-        self.controller.run_query(insert_query)
+        self.controller.run_procedure('SHOP_PKG.update_shop', [street, shop_name, city, country,
+                                                               street_to_delete, shop_name_to_delete, city_to_delete, country_to_delete])
         self.populate_the_table_with_all_values()
 
     def search_shop(self):

@@ -1,5 +1,6 @@
 from tkinter import ttk
 
+import cx_Oracle
 from GUI_Pages.BasicPage import BasicPage
 from Utilities.TableFrame import TableFrame
 import tkinter as tk
@@ -33,7 +34,7 @@ class ShippingPage(BasicPage):
         self.init_update_frame(viewer_frame)
         self.init_delete_frame(viewer_frame)
 
-        columns_names = list(map("".join, self.controller.get_columns_name('shipping_methods')))
+        columns_names = list(map("".join, self.controller.get_columns_name('pbd_shipping_methods')))
         self.table = TableFrame(viewer_frame, columns_names)
         self.table.grid(row=2, column=0, columnspan=4, sticky="nesw", padx=5, pady=5)
         self.populate_the_table_with_all_values()
@@ -253,13 +254,12 @@ class ShippingPage(BasicPage):
         name = self.shipping_name_delete_var.get()
 
         name = name.replace('\'', '\'\'')
-        delete_query = "DELETE FROM pbd_shipping_methods WHERE provider='{}'".format(name)
-        import cx_Oracle
         try:
-            self.controller.run_query(delete_query)
-        except cx_Oracle.IntegrityError:
+            self.controller.run_procedure('SHIPPING_PACK.delete_item', [name])
+        except cx_Oracle.DatabaseError as exc_db_err:
             from tkinter import messagebox
-            messagebox.showinfo("Delete Error", "Can't delete shop because orders are present")
+            messagebox.showinfo("Delete Error", "Can't delete shipping.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
             return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
@@ -288,18 +288,21 @@ class ShippingPage(BasicPage):
         name = name.strip()
 
         price = self.price_insert.get()
-
         if self.is_empty(name, price) or self.provider_exists(name):
             return
-
         if not self.is_number(price):
             from tkinter import messagebox
             messagebox.showinfo("Insert Error", "Price is not number")
             return
 
         name = name.replace('\'', '\'\'')
-        insert_query = "INSERT INTO pbd_shipping_methods (provider, delivering_price) VALUES ('{}', {})".format(name, price)
-        self.controller.run_query(insert_query)
+        try:
+            self.controller.run_procedure('SHIPPING_PACK.insert_item', [name, price])
+        except cx_Oracle.DatabaseError as exc_db_err:
+            from tkinter import messagebox
+            messagebox.showinfo("Insert error", "Can't insert shipping.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
+            return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
 
@@ -319,7 +322,7 @@ class ShippingPage(BasicPage):
             return
 
         log.info("Update provider {} to price {}".format(name, price))
-        if not self.is_number(price):
+        if not self.is_number(price) and price != "":
             from tkinter import messagebox
             messagebox.showinfo("Insert Error", "Price is not number")
             return
@@ -327,8 +330,13 @@ class ShippingPage(BasicPage):
         old_name = self.shipping_name_delete_var.get().replace('\'', '\'\'')
 
         name = name.replace('\'', '\'\'')
-        insert_query = "UPDATE pbd_shipping_methods set provider = '{}', delivering_price = {} where provider='{}'".format(name, price, old_name)
-        self.controller.run_query(insert_query)
+        try:
+            self.controller.run_procedure('SHIPPING_PACK.update_item', [old_name, name, price])
+        except cx_Oracle.DatabaseError as exc_db_err:
+            from tkinter import messagebox
+            messagebox.showinfo("Update error", "Can't update shipping.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
+            return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
 

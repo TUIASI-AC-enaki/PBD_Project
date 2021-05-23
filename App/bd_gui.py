@@ -15,7 +15,6 @@ import sys
 FORMAT = '[%(asctime)s] [%(levelname)s] : %(message)s'
 log.basicConfig(stream=sys.stdout, level=log.DEBUG, format=FORMAT)
 
-
 # cx_Oracle.init_oracle_client(lib_dir="D:\Programs\oracle\instantclient_19_8")
 bd_config = {
     "username": os.environ.get("username_pbd_proiect"),
@@ -74,9 +73,34 @@ class BdGui(tk.Tk):
             return None
         return query_results
 
+    def get_complex_type_var(self, type_name):
+        with self.conn.cursor() as cursor:
+            objType = self.conn.gettype(type_name)
+            return cursor.var(objType)
+
+    def get_basic_type_var(self, type_name):
+        with self.conn.cursor() as cursor:
+            return cursor.var(type_name)
+
+    def run_procedure(self, procedure_name, params):
+        cursor = self.conn.cursor()
+        try:
+            cursor.callproc(procedure_name, params)
+            self.conn.commit()
+            cursor.close()
+            return True
+        except cx_Oracle.InterfaceError:
+            self.conn.commit()
+            cursor.close()
+            return False
+
     def get_columns_name(self, table_name):
         query = "SELECT column_name FROM USER_TAB_COLUMNS WHERE lower(table_name) = '{}'".format(table_name)
         return self.run_query(query)
+
+    @staticmethod
+    def get_dict_from_oracle_object(result):
+        return {attribute.name.lower(): result.getvalue().__getattribute__(attribute.name) for attribute in result.type.attributes}
 
     @staticmethod
     def add_escape_characters(name):
@@ -91,7 +115,7 @@ class BdGui(tk.Tk):
         widget.insert(0, text)
 
     def set_state(self, widget, state='disabled'):
-        #log.info("Set state for {}".format(type(widget)))
+        # log.info("Set state for {}".format(type(widget)))
         try:
             widget.configure(state=state)
         except tk.TclError:
