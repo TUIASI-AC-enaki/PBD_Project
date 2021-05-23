@@ -1,5 +1,6 @@
 from tkinter import ttk
 
+import cx_Oracle
 from GUI_Pages.BasicPage import BasicPage
 from Utilities.TableFrame import TableFrame
 import tkinter as tk
@@ -253,13 +254,11 @@ class ShippingPage(BasicPage):
         name = self.shipping_name_delete_var.get()
 
         name = name.replace('\'', '\'\'')
-        delete_query = "DELETE FROM pbd_shipping_methods WHERE provider='{}'".format(name)
-        import cx_Oracle
         try:
-            self.controller.run_query(delete_query)
-        except cx_Oracle.IntegrityError:
+            self.controller.run_procedure('SHIPPING_PACK.delete_item', [name])
+        except cx_Oracle.IntegrityError as exc:
             from tkinter import messagebox
-            messagebox.showinfo("Delete Error", "Can't delete shop because orders are present")
+            messagebox.showinfo("Delete Error", "Can't delete shipping.\n{}".format(exc))
             return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
@@ -288,18 +287,20 @@ class ShippingPage(BasicPage):
         name = name.strip()
 
         price = self.price_insert.get()
-
         if self.is_empty(name, price) or self.provider_exists(name):
             return
-
         if not self.is_number(price):
             from tkinter import messagebox
             messagebox.showinfo("Insert Error", "Price is not number")
             return
 
         name = name.replace('\'', '\'\'')
-        insert_query = "INSERT INTO pbd_shipping_methods (provider, delivering_price) VALUES ('{}', {})".format(name, price)
-        self.controller.run_query(insert_query)
+        try:
+            self.controller.run_procedure('SHIPPING_PACK.insert_item', [name, price])
+        except cx_Oracle.IntegrityError as exc:
+            from tkinter import messagebox
+            messagebox.showinfo("Insert error", "Can't insert shipping.\n{}".format(exc))
+            return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
 
@@ -315,15 +316,15 @@ class ShippingPage(BasicPage):
         name = name.strip()
         price = self.price_update.get()
 
-        if self.is_empty(name, price):
-            return
-
         log.info("Update provider {} to price {}".format(name, price))
-        if not self.is_number(price):
+        if not self.is_number(price) and price != "":
             from tkinter import messagebox
             messagebox.showinfo("Insert Error", "Price is not number")
             return
 
+        input_dict = {}
+        if price != "":
+            input_dict[""]
         old_name = self.shipping_name_delete_var.get().replace('\'', '\'\'')
 
         name = name.replace('\'', '\'\'')
