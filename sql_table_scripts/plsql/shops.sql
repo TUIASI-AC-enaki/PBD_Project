@@ -6,9 +6,9 @@ END LOCATION_PKG;
 /
 
 CREATE OR REPLACE PACKAGE SHOP_PKG IS
-    PROCEDURE delete_shop(v_street pbd_locations.street_address%TYPE, v_shop_name pbd_shops.shop_name%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE); 
-    PROCEDURE insert_shop(v_street pbd_locations.street_address%TYPE, v_shop_name pbd_shops.shop_name%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE);
-    PROCEDURE update_shop(v_street pbd_locations.street_address%TYPE, v_shop_name pbd_shops.shop_name%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE,
+    PROCEDURE delete_shop(v_shop_name pbd_shops.shop_name%TYPE, v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE); 
+    PROCEDURE insert_shop(v_shop_name pbd_shops.shop_name%TYPE, v_stocks pbd_shops.stocks%TYPE, v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE);
+    PROCEDURE update_shop(v_shop_name pbd_shops.shop_name%TYPE, v_stocks pbd_shops.stocks%TYPE, v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE,
         v_street_to_be_updated pbd_locations.street_address%TYPE, v_shop_name_to_be_updated pbd_shops.shop_name%TYPE, v_city_to_be_updated pbd_locations.city%TYPE, v_country_to_be_updated pbd_locations.country%TYPE);
 END SHOP_PKG;
 /
@@ -48,7 +48,7 @@ END LOCATION_PKG;
 /
 
 CREATE OR REPLACE PACKAGE BODY SHOP_PKG IS
-    PROCEDURE delete_shop(v_street pbd_locations.street_address%TYPE, v_shop_name pbd_shops.shop_name%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE)
+    PROCEDURE delete_shop(v_shop_name pbd_shops.shop_name%TYPE, v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE)
     IS
         v_shop_id pbd_shops.shop_id%TYPE;
         v_location_id pbd_locations.location_id%TYPE;
@@ -60,15 +60,15 @@ CREATE OR REPLACE PACKAGE BODY SHOP_PKG IS
         DELETE FROM pbd_shops WHERE shop_id=v_shop_id;
     END;
     
-    PROCEDURE insert_shop(v_street pbd_locations.street_address%TYPE, v_shop_name pbd_shops.shop_name%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE)
+    PROCEDURE insert_shop(v_shop_name pbd_shops.shop_name%TYPE, v_stocks pbd_shops.stocks%TYPE, v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE)
     IS
         v_location_id pbd_locations.location_id%TYPE;
     BEGIN
         v_location_id :=  LOCATION_PKG.get_location_id_with_upsert(v_street, v_city, v_country);
-        INSERT INTO pbd_shops (shop_name, location_id) VALUES (v_shop_name, v_location_id);
+        INSERT INTO pbd_shops (shop_name, stocks, location_id) VALUES (v_shop_name, v_stocks, v_location_id);
     END;
     
-    PROCEDURE update_shop(v_street pbd_locations.street_address%TYPE, v_shop_name pbd_shops.shop_name%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE,
+    PROCEDURE update_shop(v_shop_name pbd_shops.shop_name%TYPE, v_stocks pbd_shops.stocks%TYPE, v_street pbd_locations.street_address%TYPE, v_city pbd_locations.city%TYPE, v_country pbd_locations.country%TYPE,
         v_street_to_be_updated pbd_locations.street_address%TYPE, v_shop_name_to_be_updated pbd_shops.shop_name%TYPE, v_city_to_be_updated pbd_locations.city%TYPE, v_country_to_be_updated pbd_locations.country%TYPE
     )
     IS
@@ -77,7 +77,7 @@ CREATE OR REPLACE PACKAGE BODY SHOP_PKG IS
     BEGIN
         v_location_id :=  LOCATION_PKG.get_location_id_with_upsert(v_street, v_city, v_country);
         v_location_id_to_be_updated :=  LOCATION_PKG.get_location_id(v_street_to_be_updated, v_city_to_be_updated, v_country_to_be_updated);
-        UPDATE pbd_shops SET shop_name = v_shop_name, location_id=v_location_id WHERE shop_name=v_shop_name_to_be_updated AND location_id=v_location_id_to_be_updated;
+        UPDATE pbd_shops SET stocks = v_stocks, shop_name = v_shop_name, location_id=v_location_id WHERE shop_name=v_shop_name_to_be_updated AND location_id=v_location_id_to_be_updated;
     END;
 END SHOP_PKG;
 /

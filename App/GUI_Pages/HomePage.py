@@ -14,7 +14,7 @@ class HomePage(BasicPage):
         self.init()
 
     def get_product_tuples(self):
-        query_select = self.controller.run_query("SELECT p.product_id, p.product_name, p.price from pbd_products p order by p.product_name")
+        query_select = self.controller.run_query("SELECT p.product_id, p.product_name, p.price, p.available_quantity quantity from pbd_products p order by p.product_name")
         return query_select
 
     def get_product_price(self, product_id):
@@ -49,7 +49,7 @@ class HomePage(BasicPage):
         order_menu = tk.LabelFrame(home_frame, text="Buy", fg='blue', width=10, bg='light gray')
         order_menu.grid(row=0, column=0, columnspan=3, padx=5, pady=5)
 
-        tk.Label(order_menu, text='Id/ Product/ Price', font=text_font, bg=order_menu['bg'], fg='red', width=width_label).grid(row=0, column=0, padx=5, pady=5)
+        tk.Label(order_menu, text='Id/ Product/ Price/ Av Qty', font=text_font, bg=order_menu['bg'], fg='red', width=width_label).grid(row=0, column=0, padx=5, pady=5)
         self.product_id_combo = ttk.Combobox(order_menu, state='readonly', width=width_entry*2, values=self.get_product_tuples())
         self.product_id_combo.grid(row=1, column=0, padx=5, pady=5)
 

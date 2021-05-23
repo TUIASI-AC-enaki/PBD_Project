@@ -14,6 +14,7 @@ CREATE OR REPLACE PACKAGE products_pack IS
     PROCEDURE update_item(
         p_product_name IN pbd_products.product_name%TYPE,
         p_price IN pbd_products.price%TYPE,
+        p_available_quantity pbd_products.available_quantity%TYPE,
         p_shop_id IN pbd_products.shop_id%TYPE,
         p_description IN pbd_products.description%TYPE,
         p_product_name_old IN pbd_products.product_name%TYPE,
@@ -26,15 +27,14 @@ CREATE OR REPLACE PACKAGE BODY products_pack IS
     PROCEDURE insert_item(
         p_product_name IN pbd_products.product_name%TYPE, 
         p_price IN pbd_products.price%TYPE,
-        p_available_quantity pbd_products.available_quantity%TYPE,
+        p_available_quantity IN pbd_products.available_quantity%TYPE,
         p_shop_id IN pbd_products.shop_id%TYPE,
         p_description IN pbd_products.description%TYPE
     ) IS
     BEGIN
-        INSERT INTO pbd_products VALUES(1, p_product_name, p_price, p_available_quantity, p_shop_id, p_description);
-    EXCEPTION
-        WHEN OTHERS THEN
-            RAISE_APPLICATION_ERROR(-20222, 'Eroare generala.');
+        INSERT INTO pbd_products (product_name, price, available_quantity, shop_id, description) 
+            VALUES
+        (p_product_name, p_price, p_available_quantity, p_shop_id, p_description);
     END;
     
     PROCEDURE delete_item(
@@ -50,6 +50,7 @@ CREATE OR REPLACE PACKAGE BODY products_pack IS
     PROCEDURE update_item(
         p_product_name IN pbd_products.product_name%TYPE,
         p_price IN pbd_products.price%TYPE,
+        p_available_quantity IN pbd_products.available_quantity%TYPE,
         p_shop_id IN pbd_products.shop_id%TYPE,
         p_description IN pbd_products.description%TYPE,
         p_product_name_old IN pbd_products.product_name%TYPE,
@@ -58,12 +59,8 @@ CREATE OR REPLACE PACKAGE BODY products_pack IS
     ) IS
     BEGIN
 
-        UPDATE pbd_products SET product_name = p_product_name, price = p_price, shop_id = p_shop_id, description = p_description 
+        UPDATE pbd_products SET product_name = p_product_name, price = p_price, available_quantity = p_available_quantity, shop_id = p_shop_id, description = p_description 
         WHERE product_name = p_product_name_old AND price = p_price_old AND shop_id = p_shop_id_old;
-        
-    EXCEPTION
-        WHEN OTHERS THEN
-            RAISE_APPLICATION_ERROR(-20222, 'Eroare generala.');
     END;
 END products_pack;
 /
@@ -73,10 +70,15 @@ FOR EACH ROW
 DECLARE
     v_product_id pbd_products.product_id%TYPE;
     v_temp NUMBER := 0;
+    v_percent_from_total_cost NUMBER := 0.5;
+    v_total_cost NUMBER;
 BEGIN
     SELECT count(*) into v_temp FROM pbd_orders WHERE product_id = :old.product_id;
     
     IF v_temp > 0 THEN
         RAISE_APPLICATION_ERROR(-20200, 'Inregistrarea nu poate fi stearsa. Exista dependente externe.');
     END IF;
+    
+    v_total_cost :=  v_percent_from_total_cost * :old.available_quantity * :old.price;
+    UPDATE pbd_shops SET stocks = stocks + v_total_cost WHERE shop_id = :old.shop_id;
 END;
