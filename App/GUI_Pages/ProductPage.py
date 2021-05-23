@@ -1,3 +1,4 @@
+import cx_Oracle
 from GUI_Pages.BasicPage import BasicPage
 import tkinter as tk
 
@@ -95,7 +96,7 @@ class ProductPage(BasicPage):
         ttk.Checkbutton(option_search_frame, text="Product Id", variable=self.search_by_product_id,
                         command=self.on_check_product_id).grid(row=0, column=0, padx=5, pady=5)
         self.search_by_price_range_btn = tk.Button(option_search_frame, text='Search By Price Range', command=self.search_price_range, bg='light cyan',
-                  fg='red')
+                                                   fg='red')
         self.search_by_price_range_btn.grid(row=0, column=1, padx=5, pady=5)
 
     def on_check_product_id(self):
@@ -314,21 +315,15 @@ class ProductPage(BasicPage):
         name = self.product_name_delete_var.get().replace('\'', '\'\'')
         if not name:
             return
-        description = self.description_delete_var.get().replace('\'', '\'\'')
         price = self.price_delete_var.get()
         shop_id = self.shop_id_delete_var.get()
 
-        if description!= 'None':
-            delete_query = "DELETE FROM pbd_products where product_name='{}' and price={} and shop_id={} and description='{}'".format(name, price, shop_id, description)
-        else:
-            delete_query = "DELETE FROM pbd_products where product_name='{}' and price={} and shop_id={} and description is NULL".format(name, price, shop_id)
-
-        import cx_Oracle
         try:
-            self.controller.run_query(delete_query)
-        except cx_Oracle.IntegrityError:
+            self.controller.run_procedure('PRODUCTS_PACK.delete_item', [name, price, shop_id])
+        except cx_Oracle.DatabaseError as exc_db_err:
             from tkinter import messagebox
-            messagebox.showinfo("Delete Error", "Can't delete shop because orders are present")
+            messagebox.showinfo("Delete error", "Can't delete product.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
             return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
@@ -386,8 +381,13 @@ class ProductPage(BasicPage):
         name = name.replace('\'', '\'\'')
         description = description.replace('\'', '\'\'')
 
-        insert_query = "INSERT INTO pbd_products (product_name, price, shop_id, description) VALUES ('{}', {}, {}, '{}')".format(name, price, shop_id, description)
-        self.controller.run_query(insert_query)
+        try:
+            self.controller.run_procedure('PRODUCTS_PACK.insert_item', [name, price, 10, shop_id, description])
+        except cx_Oracle.DatabaseError as exc_db_err:
+            from tkinter import messagebox
+            messagebox.showinfo("Insert error", "Can't insert product.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
+            return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
 
@@ -430,20 +430,32 @@ class ProductPage(BasicPage):
         old_name = self.product_name_delete_var.get().replace('\'', '\'\'')
         old_price = self.price_delete_var.get()
         old_shop_id = self.shop_id_delete_var.get()
-        old_description = self.description_delete_var.get().replace('\'', '\'\'')
 
         name = name.replace('\'', '\'\'')
         description = description.replace('\'', '\'\'')
 
         if description == 'None':
             description = ''
-        if old_description != 'None':
-            update_query = "UPDATE pbd_products set product_name = '{}', price = {}, shop_id={}, description='{}' where product_name='{}' and price = {} and shop_id={} and description='{}'".format(
-                name, price, shop_id, description, old_name, old_price, old_shop_id, old_description)
-        else:
-            update_query = "UPDATE pbd_products set product_name = '{}', price = {}, shop_id={}, description='{}' where product_name='{}' and price = {} and shop_id={} and description is NULL".format(
-                name, price, shop_id, description, old_name, old_price, old_shop_id)
-        self.controller.run_query(update_query)
+
+        try:
+            self.controller.run_procedure(
+                'PRODUCTS_PACK.update_item',
+                [
+                    name,
+                    price,
+                    shop_id,
+                    description,
+                    old_name,
+                    old_price,
+                    old_shop_id
+                ]
+            )
+        except cx_Oracle.DatabaseError as exc_db_err:
+            from tkinter import messagebox
+            messagebox.showinfo("Update error", "Can't update product.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
+            return
+
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
 

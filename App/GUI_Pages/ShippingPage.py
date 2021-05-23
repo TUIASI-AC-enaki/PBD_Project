@@ -258,7 +258,8 @@ class ShippingPage(BasicPage):
             self.controller.run_procedure('SHIPPING_PACK.delete_item', [name])
         except cx_Oracle.DatabaseError as exc_db_err:
             from tkinter import messagebox
-            messagebox.showinfo("Delete Error", "Can't delete shipping.\n{}".format(exc_db_err))
+            messagebox.showinfo("Delete Error", "Can't delete shipping.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
             return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
@@ -299,7 +300,8 @@ class ShippingPage(BasicPage):
             self.controller.run_procedure('SHIPPING_PACK.insert_item', [name, price])
         except cx_Oracle.DatabaseError as exc_db_err:
             from tkinter import messagebox
-            messagebox.showinfo("Insert error", "Can't insert shipping.\n{}".format(exc_db_err))
+            messagebox.showinfo("Insert error", "Can't insert shipping.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
             return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
@@ -316,20 +318,25 @@ class ShippingPage(BasicPage):
         name = name.strip()
         price = self.price_update.get()
 
+        if self.is_empty(name, price):
+            return
+
         log.info("Update provider {} to price {}".format(name, price))
         if not self.is_number(price) and price != "":
             from tkinter import messagebox
             messagebox.showinfo("Insert Error", "Price is not number")
             return
 
-        input_dict = {}
-        if price != "":
-            input_dict[""]
         old_name = self.shipping_name_delete_var.get().replace('\'', '\'\'')
 
         name = name.replace('\'', '\'\'')
-        insert_query = "UPDATE pbd_shipping_methods set provider = '{}', delivering_price = {} where provider='{}'".format(name, price, old_name)
-        self.controller.run_query(insert_query)
+        try:
+            self.controller.run_procedure('SHIPPING_PACK.update_item', [old_name, name, price])
+        except cx_Oracle.DatabaseError as exc_db_err:
+            from tkinter import messagebox
+            messagebox.showinfo("Update error", "Can't update shipping.\n{}"
+                                .format(exc_db_err.args[0].message.split("\n")[0]))
+            return
         self.populate_the_table_with_all_values()
         self.controller.frames["HomePage"].update_buy()
 
