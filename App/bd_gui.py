@@ -15,7 +15,7 @@ import sys
 FORMAT = '[%(asctime)s] [%(levelname)s] : %(message)s'
 log.basicConfig(stream=sys.stdout, level=log.DEBUG, format=FORMAT)
 
-cx_Oracle.init_oracle_client(lib_dir="D:\Programs\oracle\instantclient_19_8")
+# cx_Oracle.init_oracle_client(lib_dir="D:\Programs\oracle\instantclient_19_8")
 bd_config = {
     "username": os.environ.get("username_pbd_proiect"),
     "password": os.environ.get("password_pbd_proiect")
