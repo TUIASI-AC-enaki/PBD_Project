@@ -1,6 +1,6 @@
 # Online_Shopping_DB
 
-![SS](https://github.com/enaki/Online_Shopping_DB/blob/master/Documentation/ss.png)
+![SS](https://github.com/TUIASI-AC-enaki/PBD_Project/blob/master/Documentation/ss.png)
 
 ## 1. Introduction
 
@@ -44,10 +44,10 @@ To view the records, a TableFrame class has been created that contains an attrib
 
 
 #### Class Diagram for GUI Pages
-![App Pages Diagram](https://github.com/enaki/Online_Shopping_DB/blob/master/Documentation/app_pages.png)
+![App Pages Diagram](https://github.com/TUIASI-AC-enaki/PBD_Project/blob/master/Documentation/app_pages.png)
 
 #### Class Diagram of the Application without BdGui class
-![Class Diagram](https://github.com/enaki/Online_Shopping_DB/blob/master/Documentation/class_diagram.png)
+![Class Diagram](https://github.com/TUIASI-AC-enaki/PBD_Project/blob/master/Documentation/class_diagram.png)
 
 ## 3. Password encryption and decryption
 
@@ -64,10 +64,10 @@ cryptographic function using the hashlib library.
 
 ## 4. ER-Diagram
 
-![ER Diagram](https://github.com/enaki/Online_Shopping_DB/blob/master/Documentation/er_diagram_1.png)
+![ER Diagram](https://github.com/TUIASI-AC-enaki/PBD_Project/blob/master/Documentation/er_diagram_1.png)
 
 
-![ER Diagram](https://github.com/enaki/Online_Shopping_DB/blob/master/Documentation/er_diagram_3.png)
+![ER Diagram](https://github.com/TUIASI-AC-enaki/PBD_Project/blob/master/Documentation/er_diagram_3.png)
 
 
 ## 5. How to start the project
