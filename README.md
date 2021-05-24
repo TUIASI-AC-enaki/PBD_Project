@@ -67,7 +67,7 @@ cryptographic function using the hashlib library.
 ![ER Diagram](https://github.com/enaki/Online_Shopping_DB/blob/master/Documentation/er_diagram_1.png)
 
 
-![ER Diagram](https://github.com/enaki/Online_Shopping_DB/blob/master/Documentation/er_diagram_2.png)
+![ER Diagram](https://github.com/enaki/Online_Shopping_DB/blob/master/Documentation/er_diagram_3.png)
 
 
 ## 5. How to start the project
