@@ -7,8 +7,6 @@ from cx_Oracle import DatabaseError
 def run_procedure(conn, procedure_name, params):
     cursor = conn.cursor()
     try:
-
-
         cursor.callproc(procedure_name, params)
         conn.commit()
         cursor.close()
