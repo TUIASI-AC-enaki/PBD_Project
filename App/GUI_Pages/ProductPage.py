@@ -35,7 +35,8 @@ class ProductPage(BasicPage):
         self.init_update_frame(viewer_frame)
         self.init_delete_frame(viewer_frame)
 
-        columns_names = ['PRODUCT ID', 'PRODUCT NAME', 'PRICE', 'QUANTITY', 'DATE UPDATED', 'SHOP ID', 'DESCRIPTION']
+
+        columns_names = ['PRODUCT ID', 'PRODUCT NAME', 'PRICE', 'QUANTITY', 'DATE UPDATED', 'SHOP ID', 'DESCRIPTION', 'AVAILABLE QUANTITY']
         self.table = TableFrame(viewer_frame, columns_names)
         self.table.grid(row=2, column=0, columnspan=4, sticky="nesw", padx=5, pady=5)
         self.populate_the_table_with_all_values()
@@ -546,7 +547,7 @@ class ProductPage(BasicPage):
 
     def populate_the_table_with_all_values(self):
         self.table.clear_table()
-        query_select = self.controller.run_query("SELECT product_id, product_name, price, available_quantity, date_acquired as quantity, shop_id, description from pbd_products")
+        query_select = self.controller.run_query("SELECT product_id, product_name, price, available_quantity, date_acquired as quantity, shop_id, description, (available_quantity - NVL((SELECT SUM(quantity) FROM pbd_orders o WHERE o.product_id = product_id), 0)) as available_quantity from pbd_products")
         for row in query_select:
             self.table.insert('', 'end', values=row)
 

@@ -19,6 +19,7 @@ CREATE TABLE pbd_products(
     product_id NUMBER(4) NOT NULL,
     product_name VARCHAR2(20) NOT NULL,
     price NUMBER(6, 2) NOT NULL,
+    date_acquired DATE DEFAULT sysdate NOT NULL,
     available_quantity NUMBER NOT NULL,
     shop_id NUMBER(4) NOT NULL,
     description VARCHAR2(100),

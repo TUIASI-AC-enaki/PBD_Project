@@ -43,16 +43,3 @@ CREATE OR REPLACE PACKAGE BODY shipping_pack IS
     END;
 END shipping_pack;
 /
-CREATE OR REPLACE TRIGGER trg_delete_shipping
-BEFORE DELETE ON pbd_shipping_methods
-FOR EACH ROW
-DECLARE
-    v_provider_id pbd_shipping_methods.shipping_id%TYPE;
-    v_temp NUMBER := 0;
-BEGIN
-    SELECT count(*) into v_temp FROM pbd_orders WHERE shipping_id = :old.shipping_id;
-    
-    IF v_temp > 0 THEN
-        RAISE_APPLICATION_ERROR(-20200, 'Inregistrarea nu poate fi stearsa. Exista dependente externe.');
-    END IF;
-END;
