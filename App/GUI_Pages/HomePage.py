@@ -1,3 +1,4 @@
+import re
 from tkinter import ttk
 
 import cx_Oracle
@@ -49,31 +50,52 @@ class HomePage(BasicPage):
         order_menu = tk.LabelFrame(home_frame, text="Buy", fg='blue', width=10, bg='light gray')
         order_menu.grid(row=0, column=0, columnspan=3, padx=5, pady=5)
 
-        tk.Label(order_menu, text='Id/ Product/ Price/ Av Qty', font=text_font, bg=order_menu['bg'], fg='red', width=width_label).grid(row=0, column=0, padx=5, pady=5)
-        self.product_id_combo = ttk.Combobox(order_menu, state='readonly', width=width_entry*2, values=self.get_product_tuples())
+        # Label + Combobox -> select product
+        tk.Label(order_menu, text='Id/ Product/ Price/ Av Qty', font=text_font, bg=order_menu['bg'],
+                 fg='red', width=width_label)\
+            .grid(row=0, column=0, padx=5, pady=5)
+        self.product_id_combo = ttk.Combobox(order_menu, state='readonly', width=width_entry*2,
+                                             values=self.get_product_tuples())
         self.product_id_combo.grid(row=1, column=0, padx=5, pady=5)
 
+        # Label + Combobox -> select quantity
         tk.Label(order_menu, text='Quantity', font=text_font, bg=order_menu['bg'], fg='red', width=width_label).grid(
             row=0, column=1, padx=5, pady=5)
         self.quantity_combo = ttk.Combobox(order_menu, width=width_entry, values=[x for x in range(1, 1000)])
         self.quantity_combo.grid(row=1, column=1, padx=5, pady=5)
 
-        tk.Label(order_menu, text='Id/ Shipping/ Price', font=text_font, bg=order_menu['bg'], fg='red', width=width_label).grid(
-            row=0, column=2, padx=5, pady=5)
-        self.ship_combo = ttk.Combobox(order_menu, width=width_entry*2, state='readonly', values=self.get_shipping_tuples())
+        # Label + Combobox -> select shipping
+        tk.Label(order_menu, text='Id/ Shipping/ Price', font=text_font, bg=order_menu['bg'], fg='red',
+                 width=width_label)\
+            .grid(row=0, column=2, padx=5, pady=5)
+        self.ship_combo = ttk.Combobox(order_menu, width=width_entry*2, state='readonly',
+                                       values=self.get_shipping_tuples())
         self.ship_combo.grid(row=1, column=2, padx=5, pady=5)
 
-        tk.Button(order_menu, text="Buy", command=self.on_buy, width=10, bg='red', fg=btn_fg, font=tkfont.Font(family='Helvetica', size=15)).grid(
-            row=2, column=0, columnspan=3, padx=5, pady=15)
+        # Label + Entry -> insert data
+        tk.Label(order_menu, text='Purchase data', font=text_font, bg=order_menu['bg'], fg='red', width=width_label).grid(
+            row=0, column=3, padx=5, pady=5)
+        self.order_entry = ttk.Entry(order_menu, width=width_entry*2)
+        self.order_entry.insert(0, 'YYYY-MM-DD')
+        self.order_entry.grid(row=1, column=3, padx=5, pady=5)
 
-        #options row
-        tk.Button(home_frame, text="Logout", command=self.on_logout, bg='red', fg=btn_fg, font=self.title_font).grid(row=2, column=0, padx=35, pady=15, sticky='w')
-        tk.Button(home_frame, text="Refresh", command=self.on_refresh, bg='blue', fg=btn_fg, font=self.title_font).grid(row=2, column=1, padx=35, pady=15, sticky='w')
-        self.advanced_options_button = tk.Button(home_frame, text="Advanced Options", command=self.on_advanced_opt, bg='black', fg=btn_fg, font=self.title_font)
+        # Buy button
+        tk.Button(order_menu, text="Buy", command=self.on_buy, width=10, bg='red', fg=btn_fg,
+                  font=tkfont.Font(family='Helvetica', size=15))\
+            .grid(row=2, column=0, columnspan=4, padx=5, pady=15)
+
+        # Options row
+        tk.Button(home_frame, text="Logout", command=self.on_logout, bg='red', fg=btn_fg, font=self.title_font)\
+            .grid(row=2, column=0, padx=35, pady=15, sticky='w')
+        tk.Button(home_frame, text="Refresh", command=self.on_refresh, bg='blue', fg=btn_fg, font=self.title_font)\
+            .grid(row=2, column=1, padx=35, pady=15, sticky='w')
+        self.advanced_options_button = tk.Button(home_frame, text="Advanced Options", command=self.on_advanced_opt,
+                                                 bg='black', fg=btn_fg, font=self.title_font)
         self.advanced_options_button.grid(row=2, column=2, padx=35, pady=15, sticky='e')
 
-        #table
-        columns_names = ['Order Id', 'Product Name', 'Price', 'Quantity', 'Shipping Provider', 'Provider Price', 'Total Amount', 'Date Ordered']
+        # Table
+        columns_names = ['Order Id', 'Product Name', 'Price', 'Quantity',
+                         'Shipping Provider', 'Provider Price', 'Total Amount', 'Date Ordered']
         self.table = TableFrame(home_frame, columns_names)
         self.table.grid(row=1, column=0, columnspan=3, sticky="nesw", padx=5, pady=5)
         self.populate_the_table_with_all_values()
@@ -90,7 +112,7 @@ class HomePage(BasicPage):
             self.controller.show_frame("LoginPage")
 
     @staticmethod
-    def fields_are_empty(product_id, amount, shipping_id):
+    def fields_are_empty(product_id, amount, shipping_id, purchase_date):
         from tkinter import messagebox
         if product_id == '':
             messagebox.showinfo("Buy Error", "Product id required")
@@ -101,21 +123,34 @@ class HomePage(BasicPage):
         if shipping_id == '':
             messagebox.showinfo("Buy Error", "Shipping id required")
             return True
+        if purchase_date == '':
+            messagebox.showinfo("Buy Error", "Purchase date required")
+            return True
         return False
+
+    def is_valid_date(self, purchase_date: str) -> bool:
+        pattern = r'(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])'
+        match = re.search(pattern, purchase_date)
+        return True if match else False
 
     def on_buy(self):
         if not self.session_is_allright():
             return
         from tkinter import messagebox
 
+        # Extract data from inputs
         product_id = self.product_id_combo.get().split(' ')[0]
         amount = self.quantity_combo.get()
         shipping_id = self.ship_combo.get().split(' ')[0]
+        purchase_date: str = self.order_entry.get()
 
-        if self.fields_are_empty(product_id, amount, shipping_id):
+        if self.fields_are_empty(product_id, amount, shipping_id, purchase_date):
             return
         if not amount.isdigit() or not self.is_number(amount, max_range=1_0000):
             messagebox.showinfo("Buy error", "Amount is not valid number")
+            return
+        if not self.is_valid_date(purchase_date):
+            messagebox.showinfo("Buy error", "The purchase date is not valid.")
             return
 
         if not messagebox.askokcancel("Buy", "Are you sure you want to buy this item?"):
