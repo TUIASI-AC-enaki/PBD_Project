@@ -21,7 +21,7 @@ CREATE OR REPLACE PACKAGE BODY utils_pkg IS
         CURSOR v_product_cursor(v_product_id pbd_products.product_id%TYPE) IS SELECT * FROM pbd_products WHERE product_id = v_product_id;
     BEGIN
         FOR v_product IN v_product_cursor(v_product_id) LOOP
-            DBMS_OUTPUT.PUT_LINE('Product Id = ' || v_product.product_id || ', Product Name = ' || v_product.product_name || ', Product Price = ' || v_product.price || ', Shop Id = ' || v_product.shop_id || ', Available Quantity= ' || v_product.available_quantity);
+            DBMS_OUTPUT.PUT_LINE('Product Id = ' || v_product.product_id || ', Product Name = ' || v_product.product_name || ', Product Price = ' || v_product.price || ', Product Acquired On = ' || v_product.date_acquired || ', Shop Id = ' || v_product.shop_id || ', Available Quantity= ' || v_product.available_quantity);
             print_shop_status(v_product.shop_id);
         END LOOP;
     END;

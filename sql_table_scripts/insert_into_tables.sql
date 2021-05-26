@@ -20,9 +20,9 @@ INSERT INTO pbd_shops (shop_name, location_id) VALUES ('PC Garage', (select loca
 INSERT INTO pbd_shops (shop_name, location_id) VALUES ('Emag', (select location_id from pbd_locations where street_address = 'Str. Plopilor' and city = 'Cluj-Napoca' and country='Romania'));
 
 /* pbd_products */
-INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALUES ('Covor Traditional', 20, 10,
+INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALUES ('Covor Traditional', 20, 20,
     (SELECT shop_id FROM pbd_shops s, pbd_locations l WHERE s.location_id = l.location_id AND s.shop_name = 'SA Covoare Ungheni' AND l.street_address = 'Str. Mihai Eminescu' AND l.city = 'Ungheni' AND l.country='Republica Moldova'));
-INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALUES ('Covor Modern Vintage', 40, 10,
+INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALUES ('Covor Modern Vintage', 40, 20,
     (SELECT shop_id FROM pbd_shops s, pbd_locations l WHERE s.location_id = l.location_id AND s.shop_name = 'SA Covoare Ungheni' AND l.street_address = 'Str. Mihai Eminescu' and l.city = 'Ungheni' AND l.country='Republica Moldova'));
 INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALUES ('Cuptor cu microunde', 35.2, 20,
     (SELECT shop_id FROM pbd_shops s, pbd_locations l WHERE s.location_id = l.location_id AND s.shop_name = 'BOMBA' AND l.street_address = 'Str. Nationala' and l.city = 'Chisinau' AND l.country='Republica Moldova'));
@@ -41,9 +41,9 @@ INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALU
     (SELECT shop_id FROM pbd_shops s, pbd_locations l WHERE s.location_id = l.location_id AND s.shop_name = 'PC Garage' AND l.street_address = 'Bulevardul Timisoara' and l.city = 'Bucuresti' AND l.country='Romania'));
 INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALUES ('Lenovo Legion', 1000, 40,
     (SELECT shop_id FROM pbd_shops s, pbd_locations l WHERE s.location_id = l.location_id AND s.shop_name = 'PC Garage' AND l.street_address = 'Bulevardul Timisoara' and l.city = 'Bucuresti' AND l.country='Romania'));
-INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALUES ('Dell Inspiron 5567', 700, 10,
+INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALUES ('Dell Inspiron 5567', 700, 20,
     (SELECT shop_id FROM pbd_shops s, pbd_locations l WHERE s.location_id = l.location_id AND s.shop_name = 'Altex' AND l.street_address = 'Str. Palas' and l.city = 'Iasi' AND l.country='Romania'));
-INSERT INTO pbd_products (product_name, price, available_quantity, shop_id, description) VALUES ('Dell Inspiron 5567', 500, 10,
+INSERT INTO pbd_products (product_name, price, available_quantity, shop_id, description) VALUES ('Dell Inspiron 5567', 500, 20,
     (SELECT shop_id FROM pbd_shops s, pbd_locations l WHERE s.location_id = l.location_id AND s.shop_name = 'Altex' AND l.street_address = 'Str. Palas' and l.city = 'Iasi' AND l.country='Romania'), 'Resigilat');
 INSERT INTO pbd_products (product_name, price, available_quantity, shop_id) VALUES ('Apple Stand', 1000, 20,
     (SELECT shop_id FROM pbd_shops s, pbd_locations l WHERE s.location_id = l.location_id AND s.shop_name = 'Emag' AND l.street_address = 'Str. Plopilor' and l.city = 'Cluj-Napoca' AND l.country='Romania'));
