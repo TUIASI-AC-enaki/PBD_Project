@@ -32,7 +32,7 @@ class ProductPage(BasicPage):
         self.init_update_frame(viewer_frame)
         self.init_delete_frame(viewer_frame)
 
-        columns_names = ['PRODUCT ID', 'PRODUCT NAME', 'PRICE', 'QUANTITY', 'SHOP ID', 'DESCRIPTION']
+        columns_names = ['PRODUCT ID', 'PRODUCT NAME', 'PRICE', 'QUANTITY', 'DATE UPDATED', 'SHOP ID', 'DESCRIPTION']
         self.table = TableFrame(viewer_frame, columns_names)
         self.table.grid(row=2, column=0, columnspan=4, sticky="nesw", padx=5, pady=5)
         self.populate_the_table_with_all_values()
@@ -47,14 +47,16 @@ class ProductPage(BasicPage):
         self.product_name_delete_var.set(self.selected_item[1])
         self.price_delete_var.set(self.selected_item[2])
         self.quantity_delete_var.set(self.selected_item[3])
-        self.shop_id_delete_var.set(self.selected_item[4])
-        self.description_delete_var.set(self.selected_item[5])
+        self.date_delete_var.set(self.selected_item[4])
+        self.shop_id_delete_var.set(self.selected_item[5])
+        self.description_delete_var.set(self.selected_item[6])
         from bd_gui import BdGui
         BdGui.set_entry_text(self.product_name_update, self.selected_item[1])
         BdGui.set_entry_text(self.price_update, self.selected_item[2])
         BdGui.set_entry_text(self.quantity_update, self.selected_item[3])
-        BdGui.set_entry_text(self.shop_id_update, self.selected_item[4])
-        BdGui.set_entry_text(self.description_update, self.selected_item[5])
+        BdGui.set_entry_text(self.date_update, self.selected_item[4])
+        BdGui.set_entry_text(self.shop_id_update, self.selected_item[5])
+        BdGui.set_entry_text(self.description_update, self.selected_item[6])
 
     def init_search_frame(self, master, row=0, column=0):
         width_label = 7
@@ -220,6 +222,7 @@ class ProductPage(BasicPage):
         self.price_insert = tk.Entry(price_insert_frame)
         self.price_insert.grid(row=0, column=1, padx=5, pady=5)
 
+        # Quantity
         quantity_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
         quantity_insert_frame.grid(row=2, column=0, pady=5, padx=5, sticky='w')
         tk.Label(quantity_insert_frame, text='Quantity', bg=quantity_insert_frame['bg'], fg='dark orange',
@@ -227,22 +230,32 @@ class ProductPage(BasicPage):
         self.quantity_insert = tk.Entry(quantity_insert_frame)
         self.quantity_insert.grid(row=0, column=1, padx=5, pady=5)
 
+        # Purchase date
+        date_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
+        date_insert_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        tk.Label(date_insert_frame, text='Date updated', bg=date_insert_frame['bg'], fg='dark orange',
+                 width=width_label).grid(row=0, column=0)
+        self.date_insert = tk.Entry(date_insert_frame)
+        self.date_insert.grid(row=0, column=1, padx=5, pady=5)
+
+        # Shop ID
         shop_id_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
-        shop_id_insert_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        shop_id_insert_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
         tk.Label(shop_id_insert_frame, text='Shop Id', bg=shop_id_insert_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.shop_id_insert = tk.Entry(shop_id_insert_frame)
         self.shop_id_insert.grid(row=0, column=1, padx=5, pady=5)
 
+        # Description
         description_insert_frame = tk.LabelFrame(self.insert_frame, bg='gray94')
-        description_insert_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
+        description_insert_frame.grid(row=5, column=0, pady=5, padx=5, sticky='w')
         tk.Label(description_insert_frame, text='Description', bg=description_insert_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.description_insert = tk.Entry(description_insert_frame)
         self.description_insert.grid(row=0, column=1, padx=5, pady=5)
 
         tk.Button(self.insert_frame, text='Insert', command=self.insert, bg='light cyan',
-                  fg='red').grid(row=5, column=0, padx=5, pady=5)
+                  fg='red').grid(row=6, column=0, padx=5, pady=5)
 
     def init_update_frame(self, master, row=0, column=2):
         width_label = 13
@@ -270,22 +283,31 @@ class ProductPage(BasicPage):
         self.quantity_update = tk.Entry(quantity_update_frame)
         self.quantity_update.grid(row=0, column=1, padx=5, pady=5)
 
+        # Purchase date
+        date_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
+        date_update_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        tk.Label(date_update_frame, text='Date updated', bg=date_update_frame['bg'], fg='dark orange',
+                 width=width_label).grid(row=0, column=0)
+        self.date_update = tk.Entry(date_update_frame)
+        self.date_update.grid(row=0, column=1, padx=5, pady=5)
+
         shop_id_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
-        shop_id_update_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        shop_id_update_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
         tk.Label(shop_id_update_frame, text='Shop Id', bg=shop_id_update_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.shop_id_update = tk.Entry(shop_id_update_frame)
         self.shop_id_update.grid(row=0, column=1, padx=5, pady=5)
 
         description_update_frame = tk.LabelFrame(self.update_frame, bg='gray94')
-        description_update_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
+        description_update_frame.grid(row=5, column=0, pady=5, padx=5, sticky='w')
         tk.Label(description_update_frame, text='Description', bg=description_update_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.description_update = tk.Entry(description_update_frame)
         self.description_update.grid(row=0, column=1, padx=5, pady=5)
 
+
         tk.Button(self.update_frame, text='Update', command=self.update, bg='light cyan',
-                  fg='red').grid(row=5, column=0, padx=5, pady=5)
+                  fg='red').grid(row=6, column=0, padx=5, pady=5)
 
     def init_delete_frame(self, master, row=0, column=3):
         width_label = 13
@@ -314,23 +336,30 @@ class ProductPage(BasicPage):
         self.quantity_delete_var = tk.StringVar()
         tk.Label(quantity_delete_frame, textvariable=self.quantity_delete_var, width=width_text_label).grid(row=0, column=1,
                                                                                                       padx=5, pady=5)
+        date_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
+        date_delete_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        tk.Label(date_delete_frame, text='Date updated', bg=date_delete_frame['bg'], fg='dark orange',
+                 width=width_label).grid(row=0, column=0)
+        self.date_delete_var = tk.StringVar()
+        tk.Label(date_delete_frame, textvariable=self.date_delete_var, width=width_text_label).grid(row=0, column=1, padx=5, pady=5)
 
         shop_id_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
-        shop_id_delete_frame.grid(row=3, column=0, pady=5, padx=5, sticky='w')
+        shop_id_delete_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
         tk.Label(shop_id_delete_frame, text='Shop Id', bg=shop_id_delete_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.shop_id_delete_var = tk.StringVar()
         tk.Label(shop_id_delete_frame, textvariable=self.shop_id_delete_var, width=width_text_label).grid(row=0, column=1, padx=5, pady=5)
 
         description_delete_frame = tk.LabelFrame(self.delete_frame, bg='gray94')
-        description_delete_frame.grid(row=4, column=0, pady=5, padx=5, sticky='w')
+        description_delete_frame.grid(row=5, column=0, pady=5, padx=5, sticky='w')
         tk.Label(description_delete_frame, text='Description', bg=description_delete_frame['bg'], fg='dark orange',
                  width=width_label).grid(row=0, column=0)
         self.description_delete_var = tk.StringVar()
         tk.Label(description_delete_frame, textvariable=self.description_delete_var, width=width_text_label).grid(row=0, column=1, padx=5, pady=5)
 
+
         tk.Button(self.delete_frame, text='Delete', command=self.delete, bg='light cyan',
-                  fg='red').grid(row=5, column=0, padx=5, pady=5)
+                  fg='red').grid(row=6, column=0, padx=5, pady=5)
 
     def delete(self):
         log.info("Delete product Page")
@@ -493,7 +522,7 @@ class ProductPage(BasicPage):
 
     def populate_the_table_with_all_values(self):
         self.table.clear_table()
-        query_select = self.controller.run_query("SELECT product_id, product_name, price, available_quantity as quantity, shop_id, description from pbd_products")
+        query_select = self.controller.run_query("SELECT product_id, product_name, price, available_quantity, date_acquired as quantity, shop_id, description from pbd_products")
         for row in query_select:
             self.table.insert('', 'end', values=row)
 
