@@ -121,14 +121,14 @@ SET SERVEROUTPUT ON;
 DECLARE
     v_user_id NUMBER := 2;
     v_shipping_id NUMBER := 3;
-    v_product_id NUMBER := 18;
+    v_product_id NUMBER := 1;
     v_quantity NUMBER := 1;
     v_date_ordered DATE := TO_DATE('2022-01-01','YYYY-MM-DD');
     v_inserted_product_id NUMBER;
 BEGIN
     utils_pkg.print_product_status(v_product_id);
-    --orders_pack.insert_item(v_user_id, v_shipping_id, v_product_id, v_quantity, NULL, v_date_ordered);
-    UPDATE pbd_orders SET DATE_ORDERED = TO_DATE('2021-01-01','YYYY-MM-DD') WHERE order_id = 8;
+    orders_pack.insert_item(v_user_id, v_shipping_id, v_product_id, v_quantity, NULL, v_date_ordered);
+    --UPDATE pbd_orders SET DATE_ORDERED = v_date_ordered WHERE order_id = 8;
     utils_pkg.print_product_status(v_product_id);
     --ROLLBACK;
 END;
@@ -141,16 +141,16 @@ DECLARE
     v_price NUMBER := 10;
     v_available_quantity NUMBER := 15;
     v_shop_id NUMBER := 2;
-    v_date_acquired DATE := TO_DATE('2022-01-01','YYYY-MM-DD');
+    v_date_acquired DATE := TO_DATE('2025-01-01','YYYY-MM-DD');
     
     v_inserted_product_id NUMBER;
 BEGIN
     utils_pkg.print_shop_status(v_shop_id);
-    --products_pack.insert_item(v_product_name, v_price, v_date_acquired, v_available_quantity, v_shop_id, '');
-    products_pack.update_item(v_product_name, v_price, v_date_acquired, v_available_quantity, v_shop_id, '', v_product_name, v_price, v_shop_id);
+    products_pack.insert_item(v_product_name, v_price, v_date_acquired, v_available_quantity, v_shop_id, '');
+    --products_pack.update_item(v_product_name, v_price, v_date_acquired, v_available_quantity, v_shop_id, '', v_product_name, v_price, v_shop_id);
     SELECT MAX(product_id) into v_inserted_product_id FROM pbd_products;
     utils_pkg.print_product_status(v_inserted_product_id);
-    ROLLBACK;
+    --ROLLBACK;
 END;
 /
 commit;
@@ -159,6 +159,21 @@ SELECT * FROM pbd_orders;
 SELECT * FROM pbd_app_users;
 SELECT * FROM pbd_shops;
 SELECT * FROM pbd_products;
-SELECT * FROM pbd_orders WHERE product_id = 18;
+SELECT * FROM pbd_orders WHERE product_id = 1;
 
-SELECT product_id, product_name, price, available_quantity as quantity, shop_id, description, (available_quantity - NVL((SELECT SUM(quantity) FROM pbd_orders o WHERE o.product_id = product_id), 0)) as available_quantity from pbd_products
+
+SELECT * FROM pbd_products WHERE product_id = 1;
+
+DECLARE
+    v_user_id NUMBER := 2;
+    v_shipping_id NUMBER := 3;
+    v_product_id NUMBER := 1;
+    v_quantity NUMBER := 1;
+    v_date_ordered DATE := TO_DATE('2022-01-01','YYYY-MM-DD');
+    v_inserted_product_id NUMBER;
+BEGIN
+    INSERT INTO pbd_orders(user_id, shipping_id, product_id, quantity, date_ordered) VALUES(v_user_id, v_shipping_id, v_product_id, v_quantity, v_date_ordered);
+END;
+/
+ROLLBACK;
+SELECT * FROM pbd_orders;

@@ -133,6 +133,7 @@ BEGIN
 END;
 /
 
+/* this trigger fuked our lives
 CREATE OR REPLACE TRIGGER pbd_order_date_trigger
 BEFORE INSERT
     ON pbd_orders
@@ -141,6 +142,7 @@ BEGIN
     :NEW.date_ordered := SYSDATE;
 END;
 /
+*/
 
 
 
