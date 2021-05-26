@@ -1,0 +1,130 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2734ED68-1675-953A-B41A-958A3F68DAEB" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PBD_LOCATIONS">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PBD_LOCATIONS</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:24 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="LOCATION_ID" id="1A28C593-FFCA-0814-7AF2-06DE17CBEE27">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_LOCATIONS</sourceObjSchema>
+<sourceObjName>LOCATION_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STREET_ADDRESS" id="D5E4379E-2CA4-0DCA-AB0D-48090F36BB01">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_LOCATIONS</sourceObjSchema>
+<sourceObjName>STREET_ADDRESS</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CITY" id="57F857A4-3D61-E94E-F1CE-3B3A720B269E">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_LOCATIONS</sourceObjSchema>
+<sourceObjName>CITY</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 BYTE</dataTypeSize>
+<ownDataTypeParameters>30 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COUNTRY" id="AF1B50C0-DCFF-D3C6-2464-98DE60BE4069">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_LOCATIONS</sourceObjSchema>
+<sourceObjName>COUNTRY</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 BYTE</dataTypeSize>
+<ownDataTypeParameters>30 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="8045AD04-09BB-DD34-6B3E-A7FD35569E80" name="LOCATION_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>LOCATION_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1A28C593-FFCA-0814-7AF2-06DE17CBEE27"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="31D48B29-F6E4-D030-5486-2AC85933BD83" name="LOCATION_ID_UK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>LOCATION_ID_UK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D5E4379E-2CA4-0DCA-AB0D-48090F36BB01"/>
+<colUsage columnID="57F857A4-3D61-E94E-F1CE-3B3A720B269E"/>
+<colUsage columnID="AF1B50C0-DCFF-D3C6-2464-98DE60BE4069"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E7463A4C-7DEC-2704-585A-42475367EDD3" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="LOCATION_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>LOCATION_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1A28C593-FFCA-0814-7AF2-06DE17CBEE27"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0FA03653-1FFA-EA96-3DA0-BF572D40AFE9" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="LOCATION_ID_UK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>LOCATION_ID_UK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D5E4379E-2CA4-0DCA-AB0D-48090F36BB01"/>
+<colUsage columnID="57F857A4-3D61-E94E-F1CE-3B3A720B269E"/>
+<colUsage columnID="AF1B50C0-DCFF-D3C6-2464-98DE60BE4069"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

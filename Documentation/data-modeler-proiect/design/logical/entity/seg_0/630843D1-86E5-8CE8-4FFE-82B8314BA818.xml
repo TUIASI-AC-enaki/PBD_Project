@@ -1,0 +1,146 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="630843D1-86E5-8CE8-4FFE-82B8314BA818" name="PBD APP USERS">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>64D07A2B-F76F-9D55-11F3-258CA7F7908C</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="USER ID" id="566C8378-93A3-F5EE-56A7-A2EA2E201288">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>E2F75430-277A-0DC9-1225-09078DBFF0AA</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+</Attribute>
+<Attribute name="FIRST NAME" id="6A524A76-BCA8-7366-364B-10A5E3087E00">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>662378AB-4D60-8B52-089B-8E3338C57F70</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LAST NAME" id="9B297647-56F4-5F6F-C7DA-C8AA8170821B">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>0FBA2B59-5A7D-707B-79C3-EE9112E68B1B</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LOCATION ID" id="9CB72428-421D-A9CA-C125-6F868009CEDB">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>53E58141-D16B-4AC1-DCE2-F0BA766A23B5</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<referedAttribute>AD0609E9-D093-2052-4B59-DF6C93EAB3E9</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="EMAIL" id="F669F967-77DB-12D1-06E8-6A3DCDD61DA0">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>3BDA58E8-F571-2FCE-4D68-0B4F36FBB76A</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 BYTE</dataTypeSize>
+<ownDataTypeParameters>30 BYTE,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PHONE" id="83C83FCB-83A8-FB14-1619-DE71CB3ABFD9">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>FBF52756-14A8-C959-8B6B-0B2A9FD51CAA</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="B9DBF3B3-F7A0-D588-4E72-7FAA68A65705" name="PBD APP USERS EMAIL UN">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>072FCA6C-49B7-3F5B-A63B-FF4E6D6C2AF1</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<usedAttributes>
+<attributeRef>F669F967-77DB-12D1-06E8-6A3DCDD61DA0</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="519D84FD-25AD-C76E-C5BE-7BAA6FB598BE" name="PBD APP USERS PHONE UN">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>8F0A9BF5-88E5-C0AF-3FBF-E10AE3068A8C</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<usedAttributes>
+<attributeRef>83C83FCB-83A8-FB14-1619-DE71CB3ABFD9</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="8D90A299-CD36-7643-870A-6100D98C5E83" name="USER ID PK">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>81AE8EE4-0EEB-C371-F1A8-DFB15EC54B7B</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>566C8378-93A3-F5EE-56A7-A2EA2E201288</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,9 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<UserOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UserOraclev10g" name="PBD094" directorySegmentName="seg_0" id="2ED5BB92-5BD1-6564-5865-991A0146D6F7">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjName>PBD094</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:23 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+</UserOraclev10g>

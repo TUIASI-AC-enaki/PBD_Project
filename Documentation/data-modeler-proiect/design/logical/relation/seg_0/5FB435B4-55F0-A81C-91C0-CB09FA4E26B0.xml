@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="ORDER_SHIPPING_ID_FK" directorySegmentName="seg_0" id="5FB435B4-55F0-A81C-91C0-CB09FA4E26B0">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>0BE9356A-8C15-B968-3EF4-4BF1F100CE67</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<sourcePk>2F005CCA-F6C7-B613-E13A-36C1435930BC</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>B1A715B4-D6BA-4ADE-723B-41A2D306FB37</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>281EAADF-22A4-205F-8420-A78FF8FFEB41</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

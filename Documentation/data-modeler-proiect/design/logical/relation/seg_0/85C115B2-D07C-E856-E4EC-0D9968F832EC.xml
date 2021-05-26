@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="SHOP_LOCATION_ID_FK" directorySegmentName="seg_0" id="85C115B2-D07C-E856-E4EC-0D9968F832EC">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:28:11 UTC</createdTime>
+<generatorID>40D8370A-F625-586E-11FA-79A1EBBFD4AA</generatorID>
+<ownerDesignName>design</ownerDesignName>
+<engineerTo>
+<item key="84E89687-C7D4-EBE6-0C7A-433729DC2E61" value="true"/>
+</engineerTo>
+<sourcePk>E5B256B8-0B8B-1DAB-F8AD-CC569C708267</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>8DC77AAF-AACC-3C43-380B-F53BD2CE7873</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>6DFA476B-B2FB-8DD5-98C8-4E55A0A60EE6</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

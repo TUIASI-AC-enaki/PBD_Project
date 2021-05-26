@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="PBD_SHIPPING_METHODS" directorySegmentName="seg_0" id="F6C79C25-B120-5689-5F28-787AE1D99A22">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:24 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FAAB2061-E8BA-74D1-2A04-305069CA6011</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="SHIPPING_ID" id="1E254824-CE14-C65A-F2B9-96CF2D343252">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="DELIVERING_PRICE" id="7D8A3617-E77A-40BE-AAAD-8370D949ED1F">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PROVIDER" id="A082FCE4-B61B-76AD-C77A-4591F9C46630">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="SHIPPING_ID_PK" id="07D277A4-2589-8F33-0FBD-D6D3883D3DD7">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+</IndexProxy>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="SHIPPING_UK" id="89CFB532-7B13-80B3-89DE-933EA3223A59">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+</IndexProxy>
+</indexProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="SHIPPING_ID_PK" id="DD6C3755-C503-79C6-DFE5-340E1E6673AD">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<existingIndex>07D277A4-2589-8F33-0FBD-D6D3883D3DD7</existingIndex>
+<indexSegment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="SHIPPING_UK" id="FA391D2F-C9E4-3EB9-021F-A61FE44E3C00">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<existingIndex>89CFB532-7B13-80B3-89DE-933EA3223A59</existingIndex>
+<indexSegment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev12c>

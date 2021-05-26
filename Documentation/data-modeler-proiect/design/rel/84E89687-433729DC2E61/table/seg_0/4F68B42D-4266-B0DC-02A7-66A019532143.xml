@@ -1,0 +1,193 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4F68B42D-4266-B0DC-02A7-66A019532143" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PBD_PRODUCTS">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PBD_PRODUCTS</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:24 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PRODUCT_ID" id="BBF47ACD-AFE2-E5CB-FADF-20BA378F5D77">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_PRODUCTS</sourceObjSchema>
+<sourceObjName>PRODUCT_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PRODUCT_NAME" id="F93FA1F0-DFAE-02A0-30B2-1DCFD3C54275">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_PRODUCTS</sourceObjSchema>
+<sourceObjName>PRODUCT_NAME</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PRICE" id="A745ABC7-FBEC-EF15-ECA3-896FB876DCCE">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_PRODUCTS</sourceObjSchema>
+<sourceObjName>PRICE</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<constraintName>PRICE_RANGE_CH</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="price &gt; 0 and price &lt; 1000000"/>
+<implementationDef dbType="Oracle Database 12cR2" definition="price &gt; 0 and price &lt; 1000000"/>
+</checkConstraint>
+<ownDataTypeParameters>,6,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DATE_ACQUIRED" id="238FBE95-A6F8-85DD-6133-B17092DBB324">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_PRODUCTS</sourceObjSchema>
+<sourceObjName>DATE_ACQUIRED</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>sysdate</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AVAILABLE_QUANTITY" id="C9749CBB-966C-DCF4-C8B2-282AFD58C9FB">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_PRODUCTS</sourceObjSchema>
+<sourceObjName>AVAILABLE_QUANTITY</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SHOP_ID" id="BC7661FA-A585-6A17-74DC-E0B1669CA5F3">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_PRODUCTS</sourceObjSchema>
+<sourceObjName>SHOP_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0569AAB6-7990-AEF3-5B95-07DA18C542AF" referredColumn="34A5B42C-DC57-07EA-D1AD-1A87396C3C92"/>
+</associations>
+</Column>
+<Column name="DESCRIPTION" id="5366C9CB-EA7A-167B-27E2-1E238BAA9A00">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_PRODUCTS</sourceObjSchema>
+<sourceObjName>DESCRIPTION</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<ownDataTypeParameters>100 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C36A818C-6499-F5E9-52CF-0CF40A7B2BAE" name="PRODUCT_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PRODUCT_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BBF47ACD-AFE2-E5CB-FADF-20BA378F5D77"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B434D120-F742-AEC5-E5F4-01C2687F85D9" name="PRODUCT_UK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PRODUCT_UK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F93FA1F0-DFAE-02A0-30B2-1DCFD3C54275"/>
+<colUsage columnID="A745ABC7-FBEC-EF15-ECA3-896FB876DCCE"/>
+<colUsage columnID="BC7661FA-A585-6A17-74DC-E0B1669CA5F3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="43DA39B9-7381-CDC5-8B5D-50FAB4FA49A3" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PRODUCT_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PRODUCT_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BBF47ACD-AFE2-E5CB-FADF-20BA378F5D77"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7CEDAF56-F6E4-1A8F-B546-DC400029EA16" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PRODUCT_UK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PRODUCT_UK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F93FA1F0-DFAE-02A0-30B2-1DCFD3C54275"/>
+<colUsage columnID="A745ABC7-FBEC-EF15-ECA3-896FB876DCCE"/>
+<colUsage columnID="BC7661FA-A585-6A17-74DC-E0B1669CA5F3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7BCA6009-D31A-0FA9-9BF3-E47D7744C578" name="PRODUCT_SHOP_ID_FK">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BC7661FA-A585-6A17-74DC-E0B1669CA5F3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="98C0477D-697A-FC46-341F-6B1E2F6BE851" containerWithKeyObject="64D07A2B-F76F-9D55-11F3-258CA7F7908C" localFKIndex="BCE07D88-4D78-75F1-B9C6-E6DB49C82DB2" name="USER_LOCATION_ID_FK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>USER_LOCATION_ID_FK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<referredTableLongName>PBD094.PBD_LOCATIONS</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>2734ED68-1675-953A-B41A-958A3F68DAEB</referredTableID>
+<keyObject>8045AD04-09BB-DD34-6B3E-A7FD35569E80</keyObject>
+<referredKeyID>8045AD04-09BB-DD34-6B3E-A7FD35569E80</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>LOCATION_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

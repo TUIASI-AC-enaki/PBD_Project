@@ -1,0 +1,198 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7AE43B22-F13D-0F42-3DBE-35D6125E9FCA" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PBD_ORDERS">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PBD_ORDERS</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:24 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ORDER_ID" id="03C8CE7B-A68A-5C14-4FCC-D2F066829CCC">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ORDERS</sourceObjSchema>
+<sourceObjName>ORDER_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_ID" id="786F8E30-45D9-F9DB-1B4D-132437A60001">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ORDERS</sourceObjSchema>
+<sourceObjName>USER_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2501A287-B8E7-818C-32AD-40390649AE5F" referredColumn="E2F75430-277A-0DC9-1225-09078DBFF0AA"/>
+</associations>
+</Column>
+<Column name="SHIPPING_ID" id="60FF96EC-4BA8-25C9-B925-761F5535A451">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ORDERS</sourceObjSchema>
+<sourceObjName>SHIPPING_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0BE9356A-8C15-B968-3EF4-4BF1F100CE67" referredColumn="1E254824-CE14-C65A-F2B9-96CF2D343252"/>
+</associations>
+</Column>
+<Column name="PRODUCT_ID" id="91992F62-DA64-BBB7-5DA8-684190FED3C2">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ORDERS</sourceObjSchema>
+<sourceObjName>PRODUCT_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4D2D530F-FDD3-52AA-B5E4-C29D5D61EDD0" referredColumn="BBF47ACD-AFE2-E5CB-FADF-20BA378F5D77"/>
+</associations>
+</Column>
+<Column name="QUANTITY" id="4EA33826-CEEE-A0E8-866A-5DA74C4382FB">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ORDERS</sourceObjSchema>
+<sourceObjName>QUANTITY</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<constraintName>QUANTITY_RANGE_CH</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="quantity &gt; 0 and quantity &lt; 10000"/>
+<implementationDef dbType="Oracle Database 12cR2" definition="quantity &gt; 0 and quantity &lt; 10000"/>
+</checkConstraint>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TOTAL_AMOUNT" id="8ECC2ABD-7D53-A507-B1FB-19B99C046652">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ORDERS</sourceObjSchema>
+<sourceObjName>TOTAL_AMOUNT</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<constraintName>AMOUNT_RANGE_CH</constraintName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="total_amount &gt; 0 and total_amount &lt; 10000000000"/>
+<implementationDef dbType="Oracle Database 12cR2" definition="total_amount &gt; 0 and total_amount &lt; 10000000000"/>
+</checkConstraint>
+<ownDataTypeParameters>,10,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DATE_ORDERED" id="624B869F-E189-905A-E1DB-3A509C83F332">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ORDERS</sourceObjSchema>
+<sourceObjName>DATE_ORDERED</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>sysdate</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0B7E0574-989B-5923-1020-92C4F23001E2" name="ORDER_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>ORDER_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="03C8CE7B-A68A-5C14-4FCC-D2F066829CCC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1687D824-FD6B-1530-9B21-6AF35628B689" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="ORDER_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>ORDER_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="03C8CE7B-A68A-5C14-4FCC-D2F066829CCC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F4BF8D5F-DB6B-D937-D9E5-1A4B0FE4EB34" name="ORDER_PRODUCT_ID_FK">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="91992F62-DA64-BBB7-5DA8-684190FED3C2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A58803F0-5FF5-B645-396C-1D4168F6A98F" name="ORDER_SHIPPING_ID_FK">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="60FF96EC-4BA8-25C9-B925-761F5535A451"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5DCC4BE2-74F1-3493-A0B8-63FFDED868C2" name="ORDER_USER_ID_FK">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="786F8E30-45D9-F9DB-1B4D-132437A60001"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

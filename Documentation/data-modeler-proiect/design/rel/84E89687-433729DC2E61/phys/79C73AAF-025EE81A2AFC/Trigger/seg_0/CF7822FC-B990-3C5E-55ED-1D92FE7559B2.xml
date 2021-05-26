@@ -1,0 +1,48 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="ORDER_TRIGGER_INSERT_OR_UPDATE" directorySegmentName="seg_0" id="CF7822FC-B990-3C5E-55ED-1D92FE7559B2">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>ORDER_TRIGGER_INSERT_OR_UPDATE</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<actions>INSERT, UPDATE</actions>
+<body><![CDATA[DECLARE
+    v_product_price pbd_products.price%TYPE;
+    v_date_acquired pbd_products.date_acquired%TYPE;
+    v_delivering_price pbd_shipping_methods.delivering_price%TYPE;
+
+    v_available_quantity pbd_products.available_quantity%TYPE;
+    v_quantity_of_product_id_until_order_date NUMBER := 0;
+    v_shop_id pbd_products.shop_id%TYPE;
+BEGIN
+    --updateaza total amount la pbd_orders
+    SELECT price, date_acquired INTO v_product_price, v_date_acquired FROM pbd_products p WHERE p.product_id = :new.product_id;
+    IF (:new.date_ordered < v_date_acquired) THEN
+        RAISE_APPLICATION_ERROR(-20101, 'Product was not available at the date ' || :new.date_ordered);
+    END IF;
+
+    SELECT delivering_price INTO v_delivering_price FROM pbd_shipping_methods s WHERE s.shipping_id = :new.shipping_id;
+    :new.total_amount := v_product_price * :new.quantity + v_delivering_price;
+
+    --verifica availabilitatea cantitatii
+    SELECT shop_id INTO v_shop_id FROM pbd_products WHERE product_id = :new.product_id;
+
+    IF INSERTING THEN
+        SELECT available_quantity INTO v_available_quantity FROM pbd_products WHERE product_id = :new.product_id;
+        SELECT nvl(sum(quantity), 0) INTO v_quantity_of_product_id_until_order_date FROM pbd_orders WHERE product_id = :new.product_id;
+        DBMS_OUTPUT.PUT_LINE('Available quantity for product id ' || :new.product_id || ' is ' || (v_available_quantity - v_quantity_of_product_id_until_order_date));
+        v_available_quantity := v_available_quantity - v_quantity_of_product_id_until_order_date - :new.quantity;
+        IF (v_available_quantity < 0) THEN
+            RAISE_APPLICATION_ERROR(-20101, 'Quantity not enough for product ' || :new.product_id);
+        END IF;
+    END IF;
+
+    --UPDATE pbd_products SET available_quantity = v_available_quantity WHERE product_id = :new.product_id;
+    UPDATE pbd_shops SET stocks = stocks + :new.total_amount WHERE shop_id = v_shop_id;
+END;
+]]></body>
+<triggerTime>BEFORE</triggerTime>
+<owner>2ED5BB92-5BD1-6564-5865-991A0146D6F7</owner>
+<table>7AE43B22-F13D-0F42-3DBE-35D6125E9FCA</table>
+</TriggerOraclev10g>

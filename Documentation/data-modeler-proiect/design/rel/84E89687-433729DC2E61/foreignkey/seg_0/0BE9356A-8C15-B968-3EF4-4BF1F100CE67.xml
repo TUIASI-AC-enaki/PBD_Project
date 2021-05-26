@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="0BE9356A-8C15-B968-3EF4-4BF1F100CE67" containerWithKeyObject="7AE43B22-F13D-0F42-3DBE-35D6125E9FCA" localFKIndex="A58803F0-5FF5-B645-396C-1D4168F6A98F" name="ORDER_SHIPPING_ID_FK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>ORDER_SHIPPING_ID_FK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<referredTableLongName>PBD094.PBD_SHIPPING_METHODS</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>F6C79C25-B120-5689-5F28-787AE1D99A22</referredTableID>
+<keyObject>DD6C3755-C503-79C6-DFE5-340E1E6673AD</keyObject>
+<referredKeyID>DD6C3755-C503-79C6-DFE5-340E1E6673AD</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>SHIPPING_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

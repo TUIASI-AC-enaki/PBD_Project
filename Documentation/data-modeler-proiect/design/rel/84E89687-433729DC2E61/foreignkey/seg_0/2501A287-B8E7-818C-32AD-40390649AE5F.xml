@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="2501A287-B8E7-818C-32AD-40390649AE5F" containerWithKeyObject="7AE43B22-F13D-0F42-3DBE-35D6125E9FCA" localFKIndex="5DCC4BE2-74F1-3493-A0B8-63FFDED868C2" name="ORDER_USER_ID_FK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>ORDER_USER_ID_FK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<referredTableLongName>PBD094.PBD_APP_USERS</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>64D07A2B-F76F-9D55-11F3-258CA7F7908C</referredTableID>
+<keyObject>81AE8EE4-0EEB-C371-F1A8-DFB15EC54B7B</keyObject>
+<referredKeyID>81AE8EE4-0EEB-C371-F1A8-DFB15EC54B7B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>USER_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

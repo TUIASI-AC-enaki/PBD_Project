@@ -1,0 +1,143 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0E7C0320-15AB-6DE8-334D-79FFD1CF83D8" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PBD_SHOPS">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PBD_SHOPS</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:24 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SHOP_ID" id="34A5B42C-DC57-07EA-D1AD-1A87396C3C92">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_SHOPS</sourceObjSchema>
+<sourceObjName>SHOP_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SHOP_NAME" id="D708FD67-4F79-4ADE-2CF4-D3FC91FC754C">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_SHOPS</sourceObjSchema>
+<sourceObjName>SHOP_NAME</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="STOCKS" id="74463595-2233-41D3-7428-18443F98511B">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_SHOPS</sourceObjSchema>
+<sourceObjName>STOCKS</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<defaultValue>100</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_ID" id="E3830C25-A10D-9593-C128-9FA39BE130D1">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_SHOPS</sourceObjSchema>
+<sourceObjName>LOCATION_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="40D8370A-F625-586E-11FA-79A1EBBFD4AA" referredColumn="1A28C593-FFCA-0814-7AF2-06DE17CBEE27"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F90B05C6-A5DC-32E2-F05F-0090C3B84168" name="SHOP_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>SHOP_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="34A5B42C-DC57-07EA-D1AD-1A87396C3C92"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E3FDEF36-7D3B-758E-6FAD-52F1B3FBEBD6" name="SHOP_UK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>SHOP_UK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D708FD67-4F79-4ADE-2CF4-D3FC91FC754C"/>
+<colUsage columnID="E3830C25-A10D-9593-C128-9FA39BE130D1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0B9D385E-3463-7C56-9B4D-5C232155E587" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="SHOP_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>SHOP_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="34A5B42C-DC57-07EA-D1AD-1A87396C3C92"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9E930A69-82B3-C2C0-9DB0-B3674E806187" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="SHOP_UK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>SHOP_UK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D708FD67-4F79-4ADE-2CF4-D3FC91FC754C"/>
+<colUsage columnID="E3830C25-A10D-9593-C128-9FA39BE130D1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="999DF7E3-E8E3-CB60-1B52-B3AB9EABC0FA" name="SHOP_LOCATION_ID_FK">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E3830C25-A10D-9593-C128-9FA39BE130D1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

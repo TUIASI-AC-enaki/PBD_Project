@@ -1,0 +1,68 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="TRG_DELETE_PROD" directorySegmentName="seg_0" id="BF43C3F2-08A4-2EAC-3EA0-F94B3C9D7AEC">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>TRG_DELETE_PROD</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<actions>DELETE</actions>
+<body><![CDATA[DECLARE
+    v_product_id pbd_products.product_id%TYPE;
+    v_temp NUMBER := 0;
+    v_percent_from_total_cost NUMBER := 0.5;
+    v_total_cost NUMBER;
+BEGIN
+    SELECT count(*) into v_temp FROM pbd_orders WHERE product_id = :old.product_id;
+
+    IF v_temp > 0 THEN
+        RAISE_APPLICATION_ERROR(-20200, 'Inregistrarea nu poate fi stearsa. Exista dependente externe.');
+    END IF;
+
+    v_total_cost := v_percent_from_total_cost * :old.available_quantity * :old.price;
+    UPDATE pbd_shops SET stocks = stocks + v_total_cost WHERE shop_id = :old.shop_id;
+END;
+
+CREATE OR REPLACE TRIGGER trg_delete_shipping
+BEFORE DELETE ON pbd_shipping_methods
+FOR EACH ROW
+DECLARE
+    v_provider_id pbd_shipping_methods.shipping_id%TYPE;
+    v_temp NUMBER := 0;
+BEGIN
+    SELECT count(*) into v_temp FROM pbd_orders WHERE shipping_id = :old.shipping_id;
+
+    IF v_temp > 0 THEN
+        RAISE_APPLICATION_ERROR(-20200, 'Inregistrarea nu poate fi stearsa. Exista dependente externe.');
+    END IF;
+END;
+
+
+CREATE OR REPLACE TRIGGER products_trigger
+BEFORE INSERT OR UPDATE ON pbd_products
+FOR EACH ROW
+DECLARE
+    v_total_cost NUMBER;
+    v_stocks NUMBER;
+    v_percent_from_total_cost NUMBER := 0.5;
+BEGIN
+    v_total_cost := :new.available_quantity * :new.price;
+
+    IF UPDATING THEN
+        UPDATE pbd_shops SET stocks = stocks + v_percent_from_total_cost*:old.available_quantity * :old.price WHERE shop_id = :old.shop_id;
+    END IF;
+    v_total_cost := v_percent_from_total_cost * v_total_cost;
+
+    SELECT stocks INTO v_stocks FROM pbd_shops WHERE shop_id = :new.shop_id;
+    IF (v_stocks < v_total_cost) THEN
+        RAISE_APPLICATION_ERROR(-20102, 'Not enough stocks in shop ' || :new.shop_id || '. Required: ' || v_total_cost || ', but there are ' || v_stocks);
+    END IF;
+
+    UPDATE pbd_shops SET stocks = v_stocks - v_total_cost WHERE shop_id = :new.shop_id;
+
+END;
+]]></body>
+<triggerTime>BEFORE</triggerTime>
+<owner>2ED5BB92-5BD1-6564-5865-991A0146D6F7</owner>
+<table>4F68B42D-4266-B0DC-02A7-66A019532143</table>
+</TriggerOraclev10g>

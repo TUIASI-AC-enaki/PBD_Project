@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="40D8370A-F625-586E-11FA-79A1EBBFD4AA" containerWithKeyObject="0E7C0320-15AB-6DE8-334D-79FFD1CF83D8" localFKIndex="999DF7E3-E8E3-CB60-1B52-B3AB9EABC0FA" name="SHOP_LOCATION_ID_FK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>SHOP_LOCATION_ID_FK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<referredTableLongName>PBD094.PBD_LOCATIONS</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>2734ED68-1675-953A-B41A-958A3F68DAEB</referredTableID>
+<keyObject>8045AD04-09BB-DD34-6B3E-A7FD35569E80</keyObject>
+<referredKeyID>8045AD04-09BB-DD34-6B3E-A7FD35569E80</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>LOCATION_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

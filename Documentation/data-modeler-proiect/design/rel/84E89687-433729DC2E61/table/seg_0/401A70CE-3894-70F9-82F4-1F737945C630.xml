@@ -1,0 +1,131 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="401A70CE-3894-70F9-82F4-1F737945C630" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PBD_ACCOUNTS">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PBD_ACCOUNTS</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:24 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="USER_ID" id="597FA434-0C00-187E-4357-B0DA0CC6D089">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ACCOUNTS</sourceObjSchema>
+<sourceObjName>USER_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B798B6D3-5A72-EE60-0564-89A5CCFC92E9" referredColumn="E2F75430-277A-0DC9-1225-09078DBFF0AA"/>
+</associations>
+</Column>
+<Column name="USERNAME" id="F6F9190B-3806-4DE4-4741-AB018C94E444">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ACCOUNTS</sourceObjSchema>
+<sourceObjName>USERNAME</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 BYTE</dataTypeSize>
+<ownDataTypeParameters>30 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PASSWORD" id="5815E736-6FB6-EFA6-FEAF-B7E95A41C71D">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ACCOUNTS</sourceObjSchema>
+<sourceObjName>PASSWORD</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<constraintName>ACCOUNT_USER_PASS_CH</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="length(password) &gt;= 6"/>
+<implementationDef dbType="Oracle Database 12cR2" definition="length(password) &gt;= 6"/>
+</checkConstraint>
+<ownDataTypeParameters>100 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACCOUNT_TYPE" id="4D37DCF0-6161-9C49-8EB3-431196DDF714">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_ACCOUNTS</sourceObjSchema>
+<sourceObjName>ACCOUNT_TYPE</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 BYTE</dataTypeSize>
+<ownDataTypeParameters>10 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A864B3F3-125F-9C1D-2DE9-17B09970AD0A" name="ACCOUNT_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>ACCOUNT_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="597FA434-0C00-187E-4357-B0DA0CC6D089"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B735A408-B590-7A86-6E06-D91F5F7C0273" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PBD_ACCOUNTS_USERNAME_UN">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>SYS_C00673444</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F6F9190B-3806-4DE4-4741-AB018C94E444"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9AF10930-9EE3-2F98-5806-F275D48E036F" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="ACCOUNT_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>ACCOUNT_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="597FA434-0C00-187E-4357-B0DA0CC6D089"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BC85BCF3-C214-005A-6308-D0A4432C9BCC" name="ACCOUNT_USER_ID_FK">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="597FA434-0C00-187E-4357-B0DA0CC6D089"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

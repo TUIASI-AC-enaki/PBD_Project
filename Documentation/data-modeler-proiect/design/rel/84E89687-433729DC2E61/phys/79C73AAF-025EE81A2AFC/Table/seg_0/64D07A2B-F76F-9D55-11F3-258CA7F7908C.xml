@@ -1,0 +1,101 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="PBD_APP_USERS" directorySegmentName="seg_0" id="64D07A2B-F76F-9D55-11F3-258CA7F7908C">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:24 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FAAB2061-E8BA-74D1-2A04-305069CA6011</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="LAST_NAME" id="0FBA2B59-5A7D-707B-79C3-EE9112E68B1B">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="EMAIL" id="3BDA58E8-F571-2FCE-4D68-0B4F36FBB76A">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LOCATION_ID" id="589D5235-2249-405C-FC61-C75330D5A83B">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="FIRST_NAME" id="662378AB-4D60-8B52-089B-8E3338C57F70">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USER_ID" id="E2F75430-277A-0DC9-1225-09078DBFF0AA">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PHONE" id="FBF52756-14A8-C959-8B6B-0B2A9FD51CAA">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="USER_ID_PK" id="B5E3F735-80B3-6D3B-79A8-B20DE9A892A7">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+</IndexProxy>
+</indexProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="USER_LOCATION_ID_FK" id="BCE07D88-4D78-75F1-B9C6-E6DB49C82DB2">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="USER_ID_PK" id="81AE8EE4-0EEB-C371-F1A8-DFB15EC54B7B">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<existingIndex>B5E3F735-80B3-6D3B-79A8-B20DE9A892A7</existingIndex>
+<indexSegment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="PBD_APP_USERS_EMAIL_UN" id="072FCA6C-49B7-3F5B-A63B-FF4E6D6C2AF1">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<indexSegment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</UniqueKey>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="PBD_APP_USERS_PHONE_UN" id="8F0A9BF5-88E5-C0AF-3FBF-E10AE3068A8C">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<indexSegment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev12c>

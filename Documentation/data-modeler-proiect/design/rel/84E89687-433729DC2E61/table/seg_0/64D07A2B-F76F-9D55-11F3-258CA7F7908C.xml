@@ -1,0 +1,168 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="64D07A2B-F76F-9D55-11F3-258CA7F7908C" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PBD_APP_USERS">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>PBD_APP_USERS</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:24 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="USER_ID" id="E2F75430-277A-0DC9-1225-09078DBFF0AA">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_APP_USERS</sourceObjSchema>
+<sourceObjName>USER_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FIRST_NAME" id="662378AB-4D60-8B52-089B-8E3338C57F70">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_APP_USERS</sourceObjSchema>
+<sourceObjName>FIRST_NAME</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_NAME" id="0FBA2B59-5A7D-707B-79C3-EE9112E68B1B">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_APP_USERS</sourceObjSchema>
+<sourceObjName>LAST_NAME</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_ID" id="589D5235-2249-405C-FC61-C75330D5A83B">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_APP_USERS</sourceObjSchema>
+<sourceObjName>LOCATION_ID</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,4,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="98C0477D-697A-FC46-341F-6B1E2F6BE851" referredColumn="1A28C593-FFCA-0814-7AF2-06DE17CBEE27"/>
+</associations>
+</Column>
+<Column name="EMAIL" id="3BDA58E8-F571-2FCE-4D68-0B4F36FBB76A">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_APP_USERS</sourceObjSchema>
+<sourceObjName>EMAIL</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30 BYTE</dataTypeSize>
+<ownDataTypeParameters>30 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PHONE" id="FBF52756-14A8-C959-8B6B-0B2A9FD51CAA">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD_APP_USERS</sourceObjSchema>
+<sourceObjName>PHONE</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 BYTE</dataTypeSize>
+<ownDataTypeParameters>20 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="81AE8EE4-0EEB-C371-F1A8-DFB15EC54B7B" name="USER_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>USER_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E2F75430-277A-0DC9-1225-09078DBFF0AA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="072FCA6C-49B7-3F5B-A63B-FF4E6D6C2AF1" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PBD_APP_USERS_EMAIL_UN">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>SYS_C00673435</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3BDA58E8-F571-2FCE-4D68-0B4F36FBB76A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8F0A9BF5-88E5-C0AF-3FBF-E10AE3068A8C" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="PBD_APP_USERS_PHONE_UN">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>SYS_C00673436</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FBF52756-14A8-C959-8B6B-0B2A9FD51CAA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B5E3F735-80B3-6D3B-79A8-B20DE9A892A7" schemaObject="DB1A20D5-C32D-8319-4F48-3A2647A76B5A" name="USER_ID_PK">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>USER_ID_PK</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E2F75430-277A-0DC9-1225-09078DBFF0AA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BCE07D88-4D78-75F1-B9C6-E6DB49C82DB2" name="USER_LOCATION_ID_FK">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="589D5235-2249-405C-FC61-C75330D5A83B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

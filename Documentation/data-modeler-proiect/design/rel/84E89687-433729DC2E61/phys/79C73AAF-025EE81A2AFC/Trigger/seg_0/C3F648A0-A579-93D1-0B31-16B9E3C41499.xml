@@ -1,0 +1,31 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TriggerOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TriggerOraclev10g" name="ORDER_TRIGGER_UPDATE" directorySegmentName="seg_0" id="C3F648A0-A579-93D1-0B31-16B9E3C41499">
+<sourceConnName>pbd-p</sourceConnName>
+<sourceObjSchema>PBD094</sourceObjSchema>
+<sourceObjName>ORDER_TRIGGER_UPDATE</sourceObjName>
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<actions>UPDATE</actions>
+<body><![CDATA[DECLARE
+    CURSOR v_product_cursor IS SELECT DISTINCT(product_id) as product_id FROM pbd_products;
+    v_available_quantity pbd_products.available_quantity%TYPE;
+    v_quantity_of_product_id NUMBER := 0;
+BEGIN
+    --verifica availabilitatea cantitatii
+    FOR v_product IN v_product_cursor LOOP
+        SELECT available_quantity INTO v_available_quantity FROM pbd_products WHERE product_id = v_product.product_id;
+
+        SELECT nvl(sum(quantity), 0) INTO v_quantity_of_product_id FROM pbd_orders WHERE product_id = v_product.product_id;
+        v_available_quantity := v_available_quantity - v_quantity_of_product_id;
+        IF (v_available_quantity < 0) THEN
+            RAISE_APPLICATION_ERROR(-20101, 'Quantity not enough for last updated product ' || v_product.product_id);
+        END IF;
+    END LOOP;
+END;
+]]></body>
+<triggerTime>AFTER</triggerTime>
+<owner>2ED5BB92-5BD1-6564-5865-991A0146D6F7</owner>
+<scope>FOR EACH STATEMENT</scope>
+<table>7AE43B22-F13D-0F42-3DBE-35D6125E9FCA</table>
+</TriggerOraclev10g>

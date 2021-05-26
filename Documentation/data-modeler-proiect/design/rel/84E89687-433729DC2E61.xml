@@ -1,0 +1,15 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="Relational_1" id="84E89687-C7D4-EBE6-0C7A-433729DC2E61" mainViewID="F31CEA12-C8E8-0298-83B8-1BB08DF5DA38">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:14:05 UTC</createdTime>
+<ownerDesignName>1</ownerDesignName>
+<shouldBeOpen>true</shouldBeOpen>
+<selectedRDBMSSite>79C73AAF-E1A7-E669-7DF0-025EE81A2AFC</selectedRDBMSSite>
+<importConnectionStamps>
+<importConnectionStamp class="oracle.dbtools.crest.imports.DBConnectionStamp">
+<connName>pbd-p</connName>
+<connUser>pbd094</connUser>
+<connType>1</connType>
+</importConnectionStamp>
+</importConnectionStamps>
+</relationalModel>

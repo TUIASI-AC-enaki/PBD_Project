@@ -1,0 +1,104 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="PBD_PRODUCTS" directorySegmentName="seg_0" id="4F68B42D-4266-B0DC-02A7-66A019532143">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:24 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>FAAB2061-E8BA-74D1-2A04-305069CA6011</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<inMemory>NO</inMemory>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="DATE_ACQUIRED" id="238FBE95-A6F8-85DD-6133-B17092DBB324">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<defaultValue>sysdate</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="DESCRIPTION" id="5366C9CB-EA7A-167B-27E2-1E238BAA9A00">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PRICE" id="A745ABC7-FBEC-EF15-ECA3-896FB876DCCE">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PRODUCT_ID" id="BBF47ACD-AFE2-E5CB-FADF-20BA378F5D77">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="SHOP_ID" id="BC7661FA-A585-6A17-74DC-E0B1669CA5F3">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="AVAILABLE_QUANTITY" id="C9749CBB-966C-DCF4-C8B2-282AFD58C9FB">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="PRODUCT_NAME" id="F93FA1F0-DFAE-02A0-30B2-1DCFD3C54275">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:25 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="PRODUCT_ID_PK" id="43DA39B9-7381-CDC5-8B5D-50FAB4FA49A3">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+</IndexProxy>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="PRODUCT_UK" id="7CEDAF56-F6E4-1A8F-B546-DC400029EA16">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:26 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<schemaObject>DB1A20D5-C32D-8319-4F48-3A2647A76B5A</schemaObject>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+</IndexProxy>
+</indexProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="PRODUCT_SHOP_ID_FK" id="7BCA6009-D31A-0FA9-9BF3-E47D7744C578">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:29 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="PRODUCT_ID_PK" id="C36A818C-6499-F5E9-52CF-0CF40A7B2BAE">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<existingIndex>43DA39B9-7381-CDC5-8B5D-50FAB4FA49A3</existingIndex>
+<indexSegment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="PRODUCT_UK" id="B434D120-F742-AEC5-E5F4-01C2687F85D9">
+<createdBy>stril</createdBy>
+<createdTime>2021-05-26 21:26:27 UTC</createdTime>
+<ownerDesignName>design</ownerDesignName>
+<segment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</segment>
+<tableSpace>156F4ABF-008C-08C7-2696-3649E0F16062</tableSpace>
+<existingIndex>7CEDAF56-F6E4-1A8F-B546-DC400029EA16</existingIndex>
+<indexSegment>5D0FD87B-729B-3CC5-7DA3-CF0EE33D69C9</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev12c>

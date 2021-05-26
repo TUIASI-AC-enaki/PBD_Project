@@ -1,4 +1,5 @@
 import re
+from datetime import date
 from tkinter import ttk
 
 import cx_Oracle
@@ -152,6 +153,7 @@ class HomePage(BasicPage):
         if not self.is_valid_date(purchase_date):
             messagebox.showinfo("Buy error", "The purchase date is not valid.")
             return
+        purchase_date = date(*map(int, purchase_date.split('-')))
 
         if not messagebox.askokcancel("Buy", "Are you sure you want to buy this item?"):
             return
@@ -165,7 +167,8 @@ class HomePage(BasicPage):
                     product_id,
                     amount,
                     str(int(self.get_shipping_price(shipping_id)) +
-                        int(amount)*int(self.get_product_price(product_id)[0][0]))
+                        int(amount)*int(self.get_product_price(product_id)[0][0])),
+                    purchase_date
                 ]
             )
         except cx_Oracle.DatabaseError as exc_db_err:

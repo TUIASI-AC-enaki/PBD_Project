@@ -547,7 +547,11 @@ class ProductPage(BasicPage):
 
     def populate_the_table_with_all_values(self):
         self.table.clear_table()
-        query_select = self.controller.run_query("SELECT product_id, product_name, price, available_quantity, date_acquired as quantity, shop_id, description, (available_quantity - NVL((SELECT SUM(quantity) FROM pbd_orders o WHERE o.product_id = product_id), 0)) as available_quantity from pbd_products")
+        query_select = self.controller.run_query("SELECT p.product_id, p.product_name, p.price, " +
+                                                 "p.available_quantity as quantity, p.date_acquired, p.shop_id, p.description, " +
+                                                 "(available_quantity - NVL((SELECT SUM(quantity) FROM pbd_orders o " +
+                                                 "WHERE o.product_id = p.product_id), 0)) as available_quantity " +
+                                                 "from pbd_products p")
         for row in query_select:
             self.table.insert('', 'end', values=row)
 
