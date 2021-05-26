@@ -1,3 +1,6 @@
+import re
+from datetime import date
+
 import cx_Oracle
 from GUI_Pages.BasicPage import BasicPage
 import tkinter as tk
@@ -47,14 +50,14 @@ class ProductPage(BasicPage):
         self.product_name_delete_var.set(self.selected_item[1])
         self.price_delete_var.set(self.selected_item[2])
         self.quantity_delete_var.set(self.selected_item[3])
-        self.date_delete_var.set(self.selected_item[4])
+        self.date_delete_var.set(self.selected_item[4].split()[0])
         self.shop_id_delete_var.set(self.selected_item[5])
         self.description_delete_var.set(self.selected_item[6])
         from bd_gui import BdGui
         BdGui.set_entry_text(self.product_name_update, self.selected_item[1])
         BdGui.set_entry_text(self.price_update, self.selected_item[2])
         BdGui.set_entry_text(self.quantity_update, self.selected_item[3])
-        BdGui.set_entry_text(self.date_update, self.selected_item[4])
+        BdGui.set_entry_text(self.date_update, self.selected_item[4].split()[0])
         BdGui.set_entry_text(self.shop_id_update, self.selected_item[5])
         BdGui.set_entry_text(self.description_update, self.selected_item[6])
 
@@ -419,6 +422,11 @@ class ProductPage(BasicPage):
             return
         description = description.strip()
 
+        date_updated = self.date_insert.get()
+        if not self.is_valid_date(date_updated):
+            return
+        date_updated = date(*map(int, date_updated.split('-')))
+
         if not self.is_number(price):
             from tkinter import messagebox
             messagebox.showinfo("Insert Error", "Price is not number")
@@ -440,7 +448,17 @@ class ProductPage(BasicPage):
             return
 
         try:
-            self.controller.run_procedure('PRODUCTS_PACK.insert_item', [name, price, quantity, shop_id, description])
+            self.controller.run_procedure(
+                'PRODUCTS_PACK.insert_item',
+                [
+                    name,
+                    price,
+                    date_updated,
+                    quantity,
+                    shop_id,
+                    description
+                ]
+            )
         except cx_Oracle.DatabaseError as exc_db_err:
             from tkinter import messagebox
             messagebox.showinfo("Insert error", "Can't insert product.\n{}"
@@ -469,6 +487,11 @@ class ProductPage(BasicPage):
         if not self.string_length_is_okay(description, text='Description Name', length=100):
             return
         description = description.strip()
+
+        date_updated = self.date_update.get()
+        if not self.is_valid_date(date_updated):
+            return
+        date_updated = date(*map(int, date_updated.split('-')))
 
         if not self.is_number(price):
             from tkinter import messagebox
@@ -503,6 +526,7 @@ class ProductPage(BasicPage):
                 [
                     name,
                     price,
+                    date_updated,
                     quantity,
                     shop_id,
                     description,
@@ -526,3 +550,7 @@ class ProductPage(BasicPage):
         for row in query_select:
             self.table.insert('', 'end', values=row)
 
+    def is_valid_date(self, purchase_date: str) -> bool:
+        pattern = r'(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])'
+        match = re.search(pattern, purchase_date)
+        return True if match else False
