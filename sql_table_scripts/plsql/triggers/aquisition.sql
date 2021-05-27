@@ -16,6 +16,7 @@ BEGIN
     v_total_cost := v_percent_from_total_cost * :old.available_quantity * :old.price;
     UPDATE pbd_shops SET stocks = stocks + v_total_cost WHERE shop_id = :old.shop_id;
 END;
+/
 
 CREATE OR REPLACE TRIGGER trg_delete_shipping
 BEFORE DELETE ON pbd_shipping_methods
@@ -30,7 +31,7 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20200, 'Inregistrarea nu poate fi stearsa. Exista dependente externe.');
     END IF;
 END;
-
+/
 
 CREATE OR REPLACE TRIGGER products_trigger
 BEFORE INSERT OR UPDATE ON pbd_products
